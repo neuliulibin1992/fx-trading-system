@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.bssuite</groupId>
-        <artifactId>bssuite-microservices</artifactId>
+        <groupId>com.enginemobi</groupId>
+        <artifactId>fx-trading-system</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../root-module</relativePath>
     </parent>
 
-    <groupId>com.bssuite</groupId>
+    <groupId>com.enginemobi</groupId>
     <artifactId>devops-scripts</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>

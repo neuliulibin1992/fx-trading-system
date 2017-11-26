@@ -4,11 +4,8 @@
 
 shopt -s extglob
 
-apps=("gateway" 
-"customer-service"
-"supplier-service"
-"product-service"
-"invoice-service" )
+apps=("gateway"
+"fx-price-service" )
 for app in "${apps[@]}";
 do
     ( cd ../$app && rm -r !(entities.jh|.yo-rc.json|../.gitignore) )

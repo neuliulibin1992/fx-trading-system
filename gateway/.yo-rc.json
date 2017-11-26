@@ -1,13 +1,13 @@
 {
   "generator-jhipster": {
     "promptValues": {
-      "packageName": "com.bssuite",
+      "packageName": "com.enginemobi",
       "nativeLanguage": "en"
     },
-    "jhipsterVersion": "4.7.0",
-    "baseName": "bssuiteGateway",
-    "packageName": "com.bssuite",
-    "packageFolder": "com/bssuite",
+    "jhipsterVersion": "4.11.0",
+    "baseName": "fxTradingSystemGateway",
+    "packageName": "com.enginemobi",
+    "packageFolder": "com/enginemobi",
     "serverPort": "8080",
     "authenticationType": "jwt",
     "hibernateCache": "hazelcast",

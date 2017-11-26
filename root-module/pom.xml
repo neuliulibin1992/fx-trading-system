@@ -4,18 +4,15 @@
                              http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.bssuite</groupId>
-    <artifactId>bssuite-microservices</artifactId>
+    <groupId>com.enginemobi</groupId>
+    <artifactId>fx-trading-system</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Business Solution Suite Microservices</name>
+    <name>Forex Trading System</name>
 
     <modules>
         <module>../gateway</module>
-        <module>../customer-service</module>
-        <module>../invoice-service</module>
-        <module>../product-service</module>
-        <module>../supplier-service</module>
+        <module>../fx-price-service</module>
 
         <module>../devops-scripts</module>
         <module>../docker-compose</module>
