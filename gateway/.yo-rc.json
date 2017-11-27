@@ -2,9 +2,10 @@
   "generator-jhipster": {
     "promptValues": {
       "packageName": "com.enginemobi.fx",
-      "nativeLanguage": "en"
+      "nativeLanguage": "en",
+      "microservicePath": "../fx-price-service"
     },
-    "jhipsterVersion": "4.11.1",
+    "jhipsterVersion": "4.10.2",
     "baseName": "fxgateway",
     "packageName": "com.enginemobi.fx",
     "packageFolder": "com/enginemobi/fx",
