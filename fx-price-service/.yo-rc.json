@@ -17,7 +17,7 @@
     "devDatabaseType": "h2Disk",
     "prodDatabaseType": "postgresql",
     "searchEngine": false,
-    "messageBroker": false,
+    "messageBroker": "kafka",
     "serviceDiscoveryType": "eureka",
     "buildTool": "maven",
     "enableSocialSignIn": false,
