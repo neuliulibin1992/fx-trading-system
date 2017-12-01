@@ -4,7 +4,7 @@
 
 cd ../gateway
 
-entities=("Customer" 
+entities=("FxRate"
 "CustomerCategory" 
 )
 for entity in "${entities[@]}";

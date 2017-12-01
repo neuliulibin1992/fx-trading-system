@@ -1,0 +1,53 @@
+
+<div *ngIf="fxRate">
+    <h2><span jhiTranslate="fxgatewayApp.fxRate.detail.title">Fx Rate</span> {{fxRate.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="fxgatewayApp.fxRate.extractTime">Extract Time</span></dt>
+        <dd>
+            <span>{{fxRate.extractTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="fxgatewayApp.fxRate.arrivalDate">Arrival Date</span></dt>
+        <dd>
+            <span>{{fxRate.arrivalDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="fxgatewayApp.fxRate.currencyQuote">Currency Quote</span></dt>
+        <dd>
+            <span>{{fxRate.currencyQuote}}</span>
+        </dd>
+        <dt><span jhiTranslate="fxgatewayApp.fxRate.currencyBaseCode">Currency Base Code</span></dt>
+        <dd>
+            <span>{{fxRate.currencyBaseCode}}</span>
+        </dd>
+        <dt><span jhiTranslate="fxgatewayApp.fxRate.currencyNonBaseCode">Currency Non Base Code</span></dt>
+        <dd>
+            <span>{{fxRate.currencyNonBaseCode}}</span>
+        </dd>
+        <dt><span jhiTranslate="fxgatewayApp.fxRate.bidPrice">Bid Price</span></dt>
+        <dd>
+            <span>{{fxRate.bidPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="fxgatewayApp.fxRate.askPrice">Ask Price</span></dt>
+        <dd>
+            <span>{{fxRate.askPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="fxgatewayApp.fxRate.midPrice">Mid Price</span></dt>
+        <dd>
+            <span>{{fxRate.midPrice}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'fx-rate/'+ fxRate.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

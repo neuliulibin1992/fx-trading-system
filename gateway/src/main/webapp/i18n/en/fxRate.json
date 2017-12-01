@@ -1,0 +1,32 @@
+{
+    "fxgatewayApp": {
+        "fxRate" : {
+            "home": {
+                "title": "Fx Rates",
+                "createLabel": "Create a new Fx Rate",
+                "createOrEditLabel": "Create or edit a Fx Rate"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Fx Rate {{ id }}?"
+            },
+            "detail": {
+                "title": "Fx Rate"
+            },
+            "extractTime": "Extract Time",
+            "arrivalDate": "Arrival Date",
+            "currencyQuote": "Currency Quote",
+            "currencyBaseCode": "Currency Base Code",
+            "currencyNonBaseCode": "Currency Non Base Code",
+            "bidPrice": "Bid Price",
+            "askPrice": "Ask Price",
+            "midPrice": "Mid Price"
+        }
+    },
+    "fxpriceserviceApp": {
+        "fxRate" : {
+            "created": "A new Fx Rate is created with identifier {{ param }}",
+            "updated": "A Fx Rate is updated with identifier {{ param }}",
+            "deleted": "A Fx Rate is deleted with identifier {{ param }}"
+        }
+    }
+}

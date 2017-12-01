@@ -8,7 +8,7 @@ apps=("gateway"
 "fx-price-service" )
 for app in "${apps[@]}";
 do
-    ( cd ../$app && rm -r !(entities.jh|.yo-rc.json|../.gitignore) )
+    ( cd ../$app && rm -r !(entities.jh|.yo-rc.json) )
 done
 
 for app in "${apps[@]}";

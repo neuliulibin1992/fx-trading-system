@@ -1,0 +1,45 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "extractTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "arrivalDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "currencyQuote",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "currencyBaseCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "currencyNonBaseCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bidPrice",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "askPrice",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "midPrice",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "changelogDate": "20171201022406",
+    "entityTableName": "fx_rate",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "fxpriceservice"
+}
