@@ -4,7 +4,7 @@
       "packageName": "com.enginemobi.fx",
       "nativeLanguage": "en"
     },
-    "jhipsterVersion": "4.10.2",
+    "jhipsterVersion": "4.11.1",
     "baseName": "fxpriceservice",
     "packageName": "com.enginemobi.fx",
     "packageFolder": "com/enginemobi/fx",
@@ -17,7 +17,7 @@
     "devDatabaseType": "h2Disk",
     "prodDatabaseType": "postgresql",
     "searchEngine": false,
-    "messageBroker": "kafka",
+    "messageBroker": false,
     "serviceDiscoveryType": "eureka",
     "buildTool": "maven",
     "enableSocialSignIn": false,
