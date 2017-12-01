@@ -5,7 +5,7 @@
       "nativeLanguage": "en",
       "microservicePath": "../fx-price-service"
     },
-    "jhipsterVersion": "4.10.2",
+    "jhipsterVersion": "4.11.1",
     "baseName": "fxgateway",
     "packageName": "com.enginemobi.fx",
     "packageFolder": "com/enginemobi/fx",
@@ -18,7 +18,7 @@
     "devDatabaseType": "h2Disk",
     "prodDatabaseType": "postgresql",
     "searchEngine": false,
-    "messageBroker": "kafka",
+    "messageBroker": false,
     "serviceDiscoveryType": "eureka",
     "buildTool": "maven",
     "enableSocialSignIn": false,

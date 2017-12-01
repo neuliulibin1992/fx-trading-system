@@ -1,0 +1,20 @@
+
+entity FxRate {
+    extractTime Instant,
+    arrivalDate LocalDate,
+    currencyQuote String,
+    currencyBaseCode String,
+    currencyNonBaseCode String,
+    bidPrice BigDecimal,
+    askPrice BigDecimal,
+    midPrice BigDecimal,
+}
+
+
+paginate FxRate with pagination
+
+dto * with mapstruct
+
+service * with serviceClass
+
+microservice FxRate with fxPriceService
