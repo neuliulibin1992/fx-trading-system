@@ -15,6 +15,6 @@ paginate FxRate with pagination
 
 dto * with mapstruct
 
-service * with serviceClass
+service * with serviceImpl
 
 microservice FxRate with fxPriceService
