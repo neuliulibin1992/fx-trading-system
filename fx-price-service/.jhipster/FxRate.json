@@ -39,7 +39,7 @@
     "entityTableName": "fx_rate",
     "dto": "mapstruct",
     "pagination": "pagination",
-    "service": "serviceClass",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "microserviceName": "fxpriceservice"
 }

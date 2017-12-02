@@ -1,34 +1,13 @@
 package com.enginemobi.fx.service;
 
-import com.enginemobi.fx.domain.FxRate;
-import com.enginemobi.fx.repository.FxRateRepository;
 import com.enginemobi.fx.service.dto.FxRateDTO;
-import com.enginemobi.fx.service.mapper.FxRateMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 
 /**
- * Service Implementation for managing FxRate.
+ * Service Interface for managing FxRate.
  */
-@Service
-@Transactional
-public class FxRateService {
-
-    private final Logger log = LoggerFactory.getLogger(FxRateService.class);
-
-    private final FxRateRepository fxRateRepository;
-
-    private final FxRateMapper fxRateMapper;
-
-    public FxRateService(FxRateRepository fxRateRepository, FxRateMapper fxRateMapper) {
-        this.fxRateRepository = fxRateRepository;
-        this.fxRateMapper = fxRateMapper;
-    }
+public interface FxRateService {
 
     /**
      * Save a fxRate.
@@ -36,12 +15,7 @@ public class FxRateService {
      * @param fxRateDTO the entity to save
      * @return the persisted entity
      */
-    public FxRateDTO save(FxRateDTO fxRateDTO) {
-        log.debug("Request to save FxRate : {}", fxRateDTO);
-        FxRate fxRate = fxRateMapper.toEntity(fxRateDTO);
-        fxRate = fxRateRepository.save(fxRate);
-        return fxRateMapper.toDto(fxRate);
-    }
+    FxRateDTO save(FxRateDTO fxRateDTO);
 
     /**
      * Get all the fxRates.
@@ -49,33 +23,20 @@ public class FxRateService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    @Transactional(readOnly = true)
-    public Page<FxRateDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all FxRates");
-        return fxRateRepository.findAll(pageable)
-            .map(fxRateMapper::toDto);
-    }
+    Page<FxRateDTO> findAll(Pageable pageable);
 
     /**
-     * Get one fxRate by id.
+     * Get the "id" fxRate.
      *
      * @param id the id of the entity
      * @return the entity
      */
-    @Transactional(readOnly = true)
-    public FxRateDTO findOne(Long id) {
-        log.debug("Request to get FxRate : {}", id);
-        FxRate fxRate = fxRateRepository.findOne(id);
-        return fxRateMapper.toDto(fxRate);
-    }
+    FxRateDTO findOne(Long id);
 
     /**
-     * Delete the fxRate by id.
+     * Delete the "id" fxRate.
      *
      * @param id the id of the entity
      */
-    public void delete(Long id) {
-        log.debug("Request to delete FxRate : {}", id);
-        fxRateRepository.delete(id);
-    }
+    void delete(Long id);
 }
