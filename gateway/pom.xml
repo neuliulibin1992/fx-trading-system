@@ -99,6 +99,12 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- client libs -->
+        <dependency>
+            <groupId>com.enginemobi</groupId>
+            <artifactId>fx—price-client-libs</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>io.github.jhipster</groupId>
             <artifactId>jhipster</artifactId>
