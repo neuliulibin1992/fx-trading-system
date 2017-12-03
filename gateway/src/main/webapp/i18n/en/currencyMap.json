@@ -1,0 +1,28 @@
+{
+    "fxgatewayApp": {
+        "currencyMap" : {
+            "home": {
+                "title": "Currency Maps",
+                "createLabel": "Create a new Currency Map",
+                "createOrEditLabel": "Create or edit a Currency Map"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Currency Map {{ id }}?"
+            },
+            "detail": {
+                "title": "Currency Map"
+            },
+            "currencyQuote": "Currency Quote",
+            "currencyBaseCode": "Currency Base Code",
+            "currencyNonBaseCode": "Currency Non Base Code",
+            "providedBy": "Provided By"
+        }
+    },
+    "fxpriceserviceApp": {
+        "currencyMap" : {
+            "created": "A new Currency Map is created with identifier {{ param }}",
+            "updated": "A Currency Map is updated with identifier {{ param }}",
+            "deleted": "A Currency Map is deleted with identifier {{ param }}"
+        }
+    }
+}

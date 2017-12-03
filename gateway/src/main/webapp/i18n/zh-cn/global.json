@@ -8,6 +8,7 @@
             "entities": {
                 "main": "数据",
                 "fxRate": "Fx Rate",
+                "currencyMap": "Currency Map",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

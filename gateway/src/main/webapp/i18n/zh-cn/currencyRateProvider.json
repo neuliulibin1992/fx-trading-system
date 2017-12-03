@@ -1,0 +1,9 @@
+{
+    "fxgatewayApp": {
+        "CurrencyRateProvider" : {
+            "null": "",
+            "ONE_FORGE": "ONE_FORGE",
+            "CURRENCY_LAYER": "CURRENCY_LAYER"
+        }
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "fxgatewayApp": {
+        "currencyMap" : {
+            "home": {
+                "title": "Currency Maps",
+                "createLabel": "建立一筆新的 Currency Map",
+                "createOrEditLabel": "建立或編輯 Currency Map"
+            },
+            "delete": {
+                "question": "您確定要刪除 Currency Map {{ id }} 嗎?"
+            },
+            "detail": {
+                "title": "Currency Map"
+            },
+            "currencyQuote": "Currency Quote",
+            "currencyBaseCode": "Currency Base Code",
+            "currencyNonBaseCode": "Currency Non Base Code",
+            "providedBy": "Provided By"
+        }
+    },
+    "fxpriceserviceApp": {
+        "currencyMap" : {
+            "created": "新的 Currency Map 建立成功，識別碼為 {{ param }}",
+            "updated": "識別碼為 {{ param }} 的 Currency Map 更新成功",
+            "deleted": "識別碼為 {{ param }} 的 Currency Map 刪除成功"
+        }
+    }
+}
