@@ -5,7 +5,7 @@
 cd ../gateway
 
 entities=("FxRate"
-"CustomerCategory" 
+"CurrencyMap"
 )
 for entity in "${entities[@]}";
 do

@@ -10,11 +10,22 @@ entity FxRate {
     midPrice BigDecimal,
 }
 
+entity CurrencyMap {
+    currencyQuote String,
+    currencyBaseCode String,
+    currencyNonBaseCode String,
+    providedBy CurrencyRateProvider,
+}
 
-paginate FxRate with pagination
+enum CurrencyRateProvider {
+    ONE_FORGE, CURRENCY_LAYER
+}
+
+
+paginate FxRate, CurrencyMap with pagination
 
 dto * with mapstruct
 
 service * with serviceImpl
 
-microservice FxRate with fxPriceService
+microservice FxRate, CurrencyMap with fxPriceService
