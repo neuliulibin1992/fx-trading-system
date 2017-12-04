@@ -7,7 +7,7 @@ apps=("gateway"
 "fx-price-service")
 for app in "${apps[@]}";
 do
-    ( cd ../$app && mvn clean package -Pprod dockerfile:build -DskipTests )
+    ( cd ../$app && mvn clean package -Pprod docker:build -DskipTests )
 done
 
 wait;
