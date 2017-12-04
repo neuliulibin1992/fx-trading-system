@@ -6,14 +6,17 @@ services:
             - SPRING_PROFILES_ACTIVE=prod,swagger
             - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
             - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://fxpriceservice-postgresql:5432/fxpriceservice
+            - SPRING_DATASOURCE_URL=jdbc:mysql://fxpriceservice-mysql:3306/fxpriceservice?useUnicode=true&characterEncoding=utf8&useSSL=false
             - JHIPSTER_SLEEP=30
             - JHIPSTER_REGISTRY_PASSWORD=admin
-    fxpriceservice-postgresql:
-        image: postgres:9.6.2
+    fxpriceservice-mysql:
+        image: mysql:5.7.18
         environment:
-            - POSTGRES_USER=fxpriceservice
-            - POSTGRES_PASSWORD=
+            - MYSQL_USER=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+            - MYSQL_DATABASE=fxpriceservice
+        command:             mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8
+            --explicit_defaults_for_timestamp
     
     fxgateway-app:
         image: fxgateway
@@ -21,16 +24,19 @@ services:
             - SPRING_PROFILES_ACTIVE=prod,swagger
             - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
             - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://fxgateway-postgresql:5432/fxgateway
+            - SPRING_DATASOURCE_URL=jdbc:mysql://fxgateway-mysql:3306/fxgateway?useUnicode=true&characterEncoding=utf8&useSSL=false
             - JHIPSTER_SLEEP=30
             - JHIPSTER_REGISTRY_PASSWORD=admin
         ports:
             - 8080:8080
-    fxgateway-postgresql:
-        image: postgres:9.6.2
+    fxgateway-mysql:
+        image: mysql:5.7.18
         environment:
-            - POSTGRES_USER=fxgateway
-            - POSTGRES_PASSWORD=
+            - MYSQL_USER=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+            - MYSQL_DATABASE=fxgateway
+        command:             mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8
+            --explicit_defaults_for_timestamp
     
     jhipster-registry:
         extends:

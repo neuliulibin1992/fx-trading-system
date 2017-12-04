@@ -11,9 +11,9 @@ Launch all your infrastructure by running: `docker-compose up -d`.
 
 ### Applications and dependencies:
 - fxpriceservice (microservice application)
-- fxpriceservice's postgresql database
+- fxpriceservice's mysql database
 - fxgateway (gateway application)
-- fxgateway's postgresql database
+- fxgateway's mysql database
 
 ### Additional Services:
 
