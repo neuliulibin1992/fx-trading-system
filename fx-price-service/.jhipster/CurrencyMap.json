@@ -1,0 +1,29 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "currencyQuote",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "currencyBaseCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "currencyNonBaseCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "providedBy",
+            "fieldType": "CurrencyRateProvider",
+            "fieldValues": "ONE_FORGE,CURRENCY_LAYER"
+        }
+    ],
+    "changelogDate": "20171204141213",
+    "entityTableName": "currency_map",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "microserviceName": "fxPriceService"
+}

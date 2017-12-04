@@ -1,0 +1,32 @@
+{
+    "fxgatewayApp": {
+        "fxRate" : {
+            "home": {
+                "title": "Fx Rates",
+                "createLabel": "建立一筆新的 Fx Rate",
+                "createOrEditLabel": "建立或編輯 Fx Rate"
+            },
+            "delete": {
+                "question": "您確定要刪除 Fx Rate {{ id }} 嗎?"
+            },
+            "detail": {
+                "title": "Fx Rate"
+            },
+            "extractTime": "Extract Time",
+            "arrivalDate": "Arrival Date",
+            "currencyQuote": "Currency Quote",
+            "currencyBaseCode": "Currency Base Code",
+            "currencyNonBaseCode": "Currency Non Base Code",
+            "bidPrice": "Bid Price",
+            "askPrice": "Ask Price",
+            "midPrice": "Mid Price"
+        }
+    },
+    "fxPriceServiceApp": {
+        "fxRate" : {
+            "created": "新的 Fx Rate 建立成功，識別碼為 {{ param }}",
+            "updated": "識別碼為 {{ param }} 的 Fx Rate 更新成功",
+            "deleted": "識別碼為 {{ param }} 的 Fx Rate 刪除成功"
+        }
+    }
+}

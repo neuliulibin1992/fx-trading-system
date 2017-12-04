@@ -1,0 +1,78 @@
+<div>
+    <h2>
+        <span jhiTranslate="fxgatewayApp.fxRate.home.title">Fx Rates</span>
+        <button class="btn btn-primary float-right jh-create-entity create-fx-rate" [routerLink]="['/', { outlets: { popup: ['fx-rate-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="fxgatewayApp.fxRate.home.createLabel">
+            Create new Fx Rate
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="fxRates">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="extractTime"><span jhiTranslate="fxgatewayApp.fxRate.extractTime">Extract Time</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="arrivalDate"><span jhiTranslate="fxgatewayApp.fxRate.arrivalDate">Arrival Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="currencyQuote"><span jhiTranslate="fxgatewayApp.fxRate.currencyQuote">Currency Quote</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="currencyBaseCode"><span jhiTranslate="fxgatewayApp.fxRate.currencyBaseCode">Currency Base Code</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="currencyNonBaseCode"><span jhiTranslate="fxgatewayApp.fxRate.currencyNonBaseCode">Currency Non Base Code</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bidPrice"><span jhiTranslate="fxgatewayApp.fxRate.bidPrice">Bid Price</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="askPrice"><span jhiTranslate="fxgatewayApp.fxRate.askPrice">Ask Price</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="midPrice"><span jhiTranslate="fxgatewayApp.fxRate.midPrice">Mid Price</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let fxRate of fxRates ;trackBy: trackId">
+                <td><a [routerLink]="['../fx-rate', fxRate.id ]">{{fxRate.id}}</a></td>
+                <td>{{fxRate.extractTime | date:'medium'}}</td>
+                <td>{{fxRate.arrivalDate | date:'mediumDate'}}</td>
+                <td>{{fxRate.currencyQuote}}</td>
+                <td>{{fxRate.currencyBaseCode}}</td>
+                <td>{{fxRate.currencyNonBaseCode}}</td>
+                <td>{{fxRate.bidPrice}}</td>
+                <td>{{fxRate.askPrice}}</td>
+                <td>{{fxRate.midPrice}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../fx-rate', fxRate.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'fx-rate/'+ fxRate.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'fx-rate/'+ fxRate.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div *ngIf="fxRates && fxRates.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+</div>

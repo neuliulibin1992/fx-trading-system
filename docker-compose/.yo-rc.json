@@ -1,0 +1,16 @@
+{
+  "generator-jhipster": {
+    "appsFolders": [
+      "fx-price-service",
+      "gateway"
+    ],
+    "directoryPath": "../",
+    "monitoring": "elk",
+    "consoleOptions": [
+      "zipkin"
+    ],
+    "serviceDiscoveryType": "eureka",
+    "adminPassword": "admin",
+    "jwtSecretKey": "b50810a7cc96e13eb665f7ed9a5d44c707a30d0c"
+  }
+}

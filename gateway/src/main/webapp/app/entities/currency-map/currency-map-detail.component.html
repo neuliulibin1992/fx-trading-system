@@ -1,0 +1,37 @@
+
+<div *ngIf="currencyMap">
+    <h2><span jhiTranslate="fxgatewayApp.currencyMap.detail.title">Currency Map</span> {{currencyMap.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="fxgatewayApp.currencyMap.currencyQuote">Currency Quote</span></dt>
+        <dd>
+            <span>{{currencyMap.currencyQuote}}</span>
+        </dd>
+        <dt><span jhiTranslate="fxgatewayApp.currencyMap.currencyBaseCode">Currency Base Code</span></dt>
+        <dd>
+            <span>{{currencyMap.currencyBaseCode}}</span>
+        </dd>
+        <dt><span jhiTranslate="fxgatewayApp.currencyMap.currencyNonBaseCode">Currency Non Base Code</span></dt>
+        <dd>
+            <span>{{currencyMap.currencyNonBaseCode}}</span>
+        </dd>
+        <dt><span jhiTranslate="fxgatewayApp.currencyMap.providedBy">Provided By</span></dt>
+        <dd>
+            <span jhiTranslate="{{'fxgatewayApp.CurrencyRateProvider.' + currencyMap.providedBy}}">{{currencyMap.providedBy}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'currency-map/'+ currencyMap.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
