@@ -4,10 +4,10 @@
 
 cd ../gateway
 
-entities=("Customer" 
-"CustomerCategory" 
+entities=("FxRate"
+"CurrencyMap"
 )
 for entity in "${entities[@]}";
 do
-    ( yes "" | yo jhipster:entity $entity && wait) 
+    ( yes "" | jhipster entity $entity && wait)
 done
