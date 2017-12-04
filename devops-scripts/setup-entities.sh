@@ -6,5 +6,5 @@ apps=("gateway"
 "fx-price-service")
 for app in "${apps[@]}";
 do
-    ( cd ../$app && yo jhipster:import-jdl entities.jh )
+    ( cd ../$app && jhipster import-jdl entities.jh )
 done

@@ -6,5 +6,5 @@ apps=("gateway"
 "fx-price-service")
 for app in "${apps[@]}";
 do
-    ( cd ../$app && yo jhipster --force --with-entities )
+    ( cd ../$app && jhipster --force --with-entities )
 done
