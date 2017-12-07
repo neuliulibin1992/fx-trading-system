@@ -48,7 +48,7 @@ node {
 
     stage('publish docker') {
         dir('fx-price-service') {
-            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            docker.withRegistry('https://registry.hub.docker.com', 'docker-login') {
                 dockerImage.push 'latest'
             }
         }
