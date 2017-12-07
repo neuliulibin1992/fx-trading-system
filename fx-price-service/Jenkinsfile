@@ -48,7 +48,7 @@ node {
 
     stage('publish docker') {
         dir('fx-price-service') {
-            docker.withRegistry('https://registry.hub.docker.com', 'docker-login') {
+            docker.withRegistry('https://hub.docker.com/login/', 'docker-login') {
                 dockerImage.push("${env.BUILD_NUMBER}")
                 dockerImage.push("latest")
             }
