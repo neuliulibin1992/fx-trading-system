@@ -5,37 +5,36 @@ node {
         checkout scm
     }
 
-    docker.image('openjdk:8').inside('-u root -e MAVEN_OPTS="-Duser.home=./"') {
-        stage('check java') {
-            sh "java -version"
-        }
-
-        stage('clean') {
-            dir('fx-price-service') {
-                sh "chmod +x mvnw"
-                sh "./mvnw clean"
-            }
-        }
-
-        stage('backend tests') {
-            try {
-                dir('fx-price-service') {
-                    sh "./mvnw test"
-                }
-            } catch(err) {
-                throw err
-            } finally {
-                junit '**/target/surefire-reports/TEST-*.xml'
-            }
-        }
-
-        stage('packaging') {
-            dir('fx-price-service') {
-                sh "./mvnw package -Pprod -DskipTests"
-            }
-        }
-
+    stage('check java') {
+        sh "java -version"
     }
+
+    stage('clean') {
+        dir('fx-price-service') {
+            sh "chmod +x mvnw"
+            sh "./mvnw clean"
+        }
+    }
+
+    stage('backend tests') {
+        try {
+            dir('fx-price-service') {
+                sh "./mvnw test"
+            }
+        } catch(err) {
+            throw err
+        } finally {
+            junit '**/target/surefire-reports/TEST-*.xml'
+        }
+    }
+
+    stage('packaging') {
+        dir('fx-price-service') {
+            sh "./mvnw package -Pprod -DskipTests"
+//             archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+        }
+    }
+
 
     def dockerImage
     stage('build docker') {
