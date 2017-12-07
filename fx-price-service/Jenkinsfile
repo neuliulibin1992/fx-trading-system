@@ -49,7 +49,9 @@ node {
     stage('publish docker') {
         dir('fx-price-service') {
             docker.withRegistry('https://registry.hub.docker.com', 'docker-login') {
-                dockerImage.push("latest")
+                sh "docker image tab latest fxpriceservice pkcool/fxpriceservice"
+                sh "docker push pkcool/fxpriceservice"
+//                dockerImage.push("latest")
             }
         }
     }
