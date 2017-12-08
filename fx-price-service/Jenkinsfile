@@ -17,17 +17,6 @@ node {
         }
     }
 
-    stage('backend tests') {
-        try {
-            dir('fx-price-service') {
-//                sh "./mvnw test"
-            }
-        } catch(err) {
-            throw err
-        } finally {
-            junit '**/target/surefire-reports/TEST-*.xml'
-        }
-    }
 
     stage('packaging') {
         dir('fx-price-service') {
