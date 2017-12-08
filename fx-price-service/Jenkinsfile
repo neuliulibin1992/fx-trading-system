@@ -41,7 +41,7 @@ node {
 
     stage('publish docker') {
         dir('fx-price-service') {
-            docker push pkcool/fxpriceservice
+            sh "docker push pkcool/fxpriceservice"
         }
     }
 }
