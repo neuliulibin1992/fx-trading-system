@@ -32,16 +32,14 @@ node {
     stage('packaging') {
         dir('fx-price-service') {
             sh "./mvnw package -Pprod -DskipTests docker:build"
-//             archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
             sh "docker image tag fxpriceservice pkcool/fxpriceservice"
-
         }
     }
 
 
-    stage('publish docker') {
-        dir('fx-price-service') {
-            sh "docker push pkcool/fxpriceservice"
-        }
-    }
+//    stage('publish docker') {
+//        dir('fx-price-service') {
+//            sh "docker push pkcool/fxpriceservice"
+//        }
+//    }
 }
