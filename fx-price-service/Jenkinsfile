@@ -31,28 +31,17 @@ node {
 
     stage('packaging') {
         dir('fx-price-service') {
-            sh "./mvnw package -Pprod -DskipTests"
+            sh "./mvnw package -Pprod -DskipTests docker:build"
 //             archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+            sh "docker image tag fxpriceservice pkcool/fxpriceservice"
+
         }
     }
 
-
-    def dockerImage
-    stage('build docker') {
-        dir('fx-price-service') {
-            sh "cp -R src/main/docker target/"
-            sh "cp target/*.war target/docker/"
-            dockerImage = docker.build('fxpriceservice', 'target/docker')
-        }
-    }
 
     stage('publish docker') {
         dir('fx-price-service') {
-            docker.withRegistry('https://registry.hub.docker.com', 'docker-login') {
-                sh "docker image tab fxpriceservice pkcool/fxpriceservice"
-                sh "docker push pkcool/fxpriceservice"
-//                dockerImage.push("latest")
-            }
+            docker push pkcool/fxpriceservice
         }
     }
 }
