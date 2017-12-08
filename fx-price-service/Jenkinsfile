@@ -21,6 +21,7 @@ node {
     stage('packaging') {
         dir('fx-price-service') {
             sh "./mvnw package -Pprod -DskipTests docker:build"
+            sh "docker image tag fxpriceservice pkcool/fxpriceservice"
         }
     }
 
