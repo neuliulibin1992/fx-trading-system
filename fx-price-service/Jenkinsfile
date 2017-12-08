@@ -31,4 +31,12 @@ node {
         }
     }
 
+    stage('kube deployment') {
+        dir('kubernetes') {
+            sh "kubectl apply -f registry"
+            sh "kubectl apply -f fxpriceservice"
+//            sh "kubectl apply -f fxgateway"
+        }
+    }
+
 }
