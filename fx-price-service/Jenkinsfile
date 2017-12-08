@@ -36,10 +36,4 @@ node {
         }
     }
 
-
-//    stage('publish docker') {
-//        dir('fx-price-service') {
-//            sh "docker push pkcool/fxpriceservice"
-//        }
-//    }
 }
