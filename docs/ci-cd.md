@@ -127,4 +127,77 @@ audo deployment should work for heroku after these settings.
         
 3. The Sonar reports will be available at: http://localhost:9000
 
+# auto deployment setup using docker
+in Google Compute Engine, after setting up jenkins.
+1. Install docker (for Debian 9, x86_64 Arch)
+    https://docs.docker.com/engine/installation/linux/docker-ce/debian/#install-docker-ce-1
 
+at the last step, run
+
+    sudo docker run hello-world
+   
+to verify docker is installed correctly.
+
+
+2. Solving Docker permission denied while trying to connect to the Docker daemon socket
+run:
+        
+          sudo usermod -a -G docker $USER
+            
+then log out and log back in.
+ref: https://techoverflow.net/2017/03/01/solving-docker-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/
+
+2.1 (Jenkins) Add username "jenkins" to Docker group, so that jenkins script can run docker commands.(similar to step 2).
+To check the username of jenkins server (in Jenkins build file, add "sh whoami")
+
+
+        sudo usermod -a -G docker jenkins
+   
+3. docker login to be able to push docker images to the public docker registry (docker hub)
+
+
+    docker login
+    
+then enter docker hub username and password
+
+3.1 (Jenkins) CONFIGURING DOCKER HUB WITH JENKINS
+To store the Docker image resulting from our build, we'll be using Docker Hub. You can sign up for a free account at 
+https://hub.docker.com
+
+We'll need to give Jenkins access to push the image to Docker Hub. For this, we'll create Credentials in Jenkins, and refer to them in the Jenkinsfile.
+
+As you might have noticed in the above Jenkinsfile, we're using docker.withRegistry to wrap the app.push commands - this instructs Jenkins to log in to a specified registry with the specified credential id (docker-hub-credentials).
+
+On the Jenkins front page, click on Credentials -> System -> Global credentials -> Add Credentials
+
+Add your Docker Hub credentials as the type Username with password, with the ID docker-hub-credentials
+
+ref: https://getintodevops.com/blog/building-your-first-docker-image-with-jenkins-2-guide-for-developers
+
+4. docker login via jenkins job
+if step 3 doesn't work, create a Jenkins freestyle job to perform docker login.
+if "Build Environment" section, select "Use secrete text or files"
+Bindings:
+    select "Username and password (separated)", username variable: "DH_USERNAME", password variable: "DH_PASSWORD", credentials: select the credential set up in step 3.
+
+in "Build" section, select "Execute Shell", and enter the shell script:
+
+    #!/bin/bash
+    docker login -u $DH_USERNAME -p $DH_PASSWORD
+
+after this step, should be able to push docker image to docker hub using command such as: 
+
+    sh "docker push pkcool/fxpriceservice"
+    
+
+# Deploy to Kubernetes from Jenkins (Google Compute Engine)
+the steps to be performed in the google compute engine where jenkins is installed
+1. Install plugins
+ Kubernetes plugin and Google Authenticated Source plugin.
+ 
+ref: https://cloud.google.com/solutions/configuring-jenkins-kubernetes-engine
+
+2. 
+
+
+# Deploy with Rancher
