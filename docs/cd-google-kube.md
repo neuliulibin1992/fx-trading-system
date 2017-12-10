@@ -289,3 +289,4 @@ alternatively,
 * https://cloud.google.com/solutions/continuous-delivery-jenkins-kubernetes-engine#deploying_a_canary_release
 * Adding Google service account credentials: https://cloud.google.com/solutions/configuring-jenkins-kubernetes-engine
 * http://www.jhipster.tech/kubernetes/
+* https://github.com/GoogleCloudPlatform/continuous-deployment-on-kubernetes
