@@ -268,11 +268,15 @@ The external IP can be found from Google Kubernetes Engine console, or by:
 ref: (https://cloud.google.com/kubernetes-engine/docs/quickstart)
 
 3. To delete a kubernetes cluster:
-In jenkins file, add
-```
-sh "gcloud container clusters delete CLUSTER_NAME"
-```
-replace CLUSTER_NAME with cluster name, i.e. fxts-kube
+* Delete the cluster from Google console,
+
+alternatively, 
+
+* In jenkins file, add
+    ```
+    sh "gcloud container clusters delete CLUSTER_NAME"
+    ```
+    replace CLUSTER_NAME with cluster name, i.e. fxts-kube
 
 
 # Tips
