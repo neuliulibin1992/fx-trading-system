@@ -5,52 +5,45 @@ node {
         checkout scm
     }
 
-    docker.image('openjdk:8').inside('-u root -e MAVEN_OPTS="-Duser.home=./"') {
-        stage('check java') {
-            sh "java -version"
-        }
-
-        stage('clean') {
-            dir('fx-price-service') {
-                sh "chmod +x mvnw"
-                sh "./mvnw clean"
-            }
-        }
-
-        stage('backend tests') {
-            try {
-                dir('fx-price-service') {
-                    sh "./mvnw test"
-                }
-            } catch(err) {
-                throw err
-            } finally {
-                junit '**/target/surefire-reports/TEST-*.xml'
-            }
-        }
-
-        stage('packaging') {
-            dir('fx-price-service') {
-                sh "./mvnw package -Pprod -DskipTests"
-            }
-        }
-
+    stage('check java') {
+        sh "java -version"
     }
 
-    def dockerImage
-    stage('build docker') {
+    stage('clean') {
         dir('fx-price-service') {
-            sh "cp -R src/main/docker target/"
-            sh "cp target/*.war target/docker/"
-            dockerImage = docker.build('fxpriceservice', 'target/docker')
+            sh "chmod +x mvnw"
+            sh "./mvnw clean"
+        }
+    }
+
+    stage('backend tests') {
+        try {
+            dir('fx-price-service') {
+                sh "./mvnw test"
+            }
+        } catch(err) {
+            throw err
+        } finally {
+            junit '**/target/surefire-reports/TEST-*.xml'
+        }
+    }
+
+    stage('packaging') {
+        dir('fx-price-service') {
+            sh "./mvnw package -Pprod -DskipTests docker:build"
+            sh "docker image tag fxpriceservice pkcool/fxpriceservice"
         }
     }
 
     stage('publish docker') {
         dir('fx-price-service') {
-            docker.withRegistry('https://registry.hub.docker.com', 'docker-login') {
-                dockerImage.push 'latest'
-            }
+            sh "docker push pkcool/fxpriceservice"
+        }
+    }
+
+    stage('deploy price-service') {
+        dir('kubernetes') {
+            sh "kubectl apply -f fxpriceservice"
         }
     }
 }

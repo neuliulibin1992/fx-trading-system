@@ -66,5 +66,11 @@ node {
         }
     }
 
+    stage('deploy gateway') {
+        dir('kubernetes') {
+            sh "kubectl apply -f fxgateway"
+        }
+    }
+
 
 }
