@@ -190,14 +190,32 @@ after this step, should be able to push docker image to docker hub using command
     sh "docker push pkcool/fxpriceservice"
     
 
+
 # Deploy to Kubernetes from Jenkins (Google Compute Engine)
 the steps to be performed in the google compute engine where jenkins is installed
-1. Install plugins
+1. install Google cloud SDK
+follow: https://cloud.google.com/sdk/downloads#apt-get
+
+2. Install plugins for Jenkins
  Kubernetes plugin and Google Authenticated Source plugin.
  
 ref: https://cloud.google.com/solutions/configuring-jenkins-kubernetes-engine
 
-2. 
+3. Jenkins config
+
+4. Enable access scope for the compute engine (service account: 979083845575-compute@developer.gserviceaccount.com)
+otherwise, jenkins job will 
+
+4.1 authenticate gcloud using the google account, instead of service account.
+run:
+
+    gcloud auth list
+to see the authenticated accounts.
 
 
-# Deploy with Rancher
+To expose Jhipster registry or jhipster console to external (assign an external IP to the service):
+kubectl expose service jhipster-registry --type=LoadBalancer --name=exposed-registry
+kubectl expose service jhipster-console --type=LoadBalancer --name=exposed-console
+
+
+

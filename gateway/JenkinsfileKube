@@ -55,6 +55,12 @@ node {
         }
     }
 
+    stage('delete cluster') {
+        dir('kubernetes') {
+            sh "gcloud container clusters delete fxts-kube"
+        }
+    }
+
     stage('deploy k8') {
         dir('kubernetes') {
             sh "gcloud container clusters create fxts-kube --preemptible --machine-type=n1-standard-4 --num-nodes 1 --scopes cloud-platform --zone us-east1-b"
@@ -62,6 +68,8 @@ node {
             sh "kubectl apply -f registry"
             sh "kubectl apply -f fxpriceservice"
             sh "kubectl apply -f fxgateway"
+            sh "kubectl expose service jhipster-registry --type=LoadBalancer --name=exposed-registry"
+            sh "kubectl expose service jhipster-console --type=LoadBalancer --name=exposed-console"
         }
     }
 
