@@ -199,8 +199,16 @@ To switch between service account and the other account (i.e. owner account )
 
     gcloud config set account 'account'
     
-The below step will set up Jenkins to use the service account, so all jenkins jobs will be able to make changes to kubernetes cluster.
+The step 2 will set up Jenkins to use the service account, so all jenkins jobs will be able to make changes to kubernetes cluster.
 i.e. create cluster, deploy application to kubernetes cluster.
+
+Optional settings:
+* set  a default project
+```
+    gcloud config set project [PROJECT-ID]
+```
+Project ID can be found from:
+ ![alt text](images/cd-google-kube/jenkins_proj_id.png "Google Jenkins VM")
 
    
 2. Install plugins for Jenkins
@@ -243,9 +251,37 @@ Use "full access" option for access scope.
 pipe line config:
  ![alt text](images/cd-google-kube/jenkins_pipeline_p1.png "Google Jenkins VM")
 
+## After deployment
+1. Find external IP of gateway from Google Kubernetes Engine.
+
+2. Expose other services to external traffic.
+i.e. to expose jhipster registry, in Jenkins build file, add:
+```
+sh "kubectl expose service jhipster-registry --type=LoadBalancer --name=exposed-registry"
+```
+the type should be "LoadBalancer" so the external IP will be assigned to the service.
+(NOTE: load balancer is not FREE)
+The external IP can be found from Google Kubernetes Engine console, or by:
+
+    kubectl get service exposed-registry
+
+ref: (https://cloud.google.com/kubernetes-engine/docs/quickstart)
+
+3. To delete a kubernetes cluster:
+In jenkins file, add
+```
+sh "gcloud container clusters delete CLUSTER_NAME"
+```
+replace CLUSTER_NAME with cluster name, i.e. fxts-kube
+
 
 # Tips
 * Set Alias in bash profile 
 * Enable "Discard old builds" for jenkins jobs to save storage space. 
  ![alt text](images/cd-google-kube/jenkins_discard_old_builds.png "Google Jenkins VM")
 
+
+# References:
+* https://cloud.google.com/solutions/continuous-delivery-jenkins-kubernetes-engine#deploying_a_canary_release
+* Adding Google service account credentials: https://cloud.google.com/solutions/configuring-jenkins-kubernetes-engine
+* http://www.jhipster.tech/kubernetes/

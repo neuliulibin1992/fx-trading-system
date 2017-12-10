@@ -55,11 +55,11 @@ node {
         }
     }
 
-    stage('delete cluster') {
-        dir('kubernetes') {
-            sh "gcloud container clusters delete fxts-kube"
-        }
-    }
+//    stage('delete cluster') {
+//        dir('kubernetes') {
+//            sh "gcloud container clusters delete fxts-kube"
+//        }
+//    }
 
     stage('deploy app') {
         dir('kubernetes') {
