@@ -239,6 +239,10 @@ the output could be:
 otherwise, jenkins job will fail (Permission issue),this is done when creating Jenkins VM, or can be changed any time in VM settings.
 Use "full access" option for access scope.
 
+## Jenkins pipeline Job:
+pipe line config:
+ ![alt text](images/cd-google-kube/jenkins_pipeline_p1.png "Google Jenkins VM")
+
 
 # Tips
 * Set Alias in bash profile 
