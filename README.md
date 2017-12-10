@@ -1,14 +1,13 @@
-# BSSuite with microservices architecture
+# Automated Forex Trading System
 
-Business Solution Suite
 
 ## Summary
-a cloud ERP system based on microservice architecture and docker.
+a FX trading system based on microservices architecture.
 
 It allows you to run:
 - The registry
 - An API Gateway
-- Several microservices (customer-service, supplier-service, etc.) based on different databases.
+- Several microservices (fx rate service, etc.).
 - The ELK stack (Elasticsearch, Logstash, Kibana) for log centralization
 - _(future) Graphite/Grafana for metrics centralization_
 
@@ -16,7 +15,7 @@ It allows you to run:
 
 It provides:
 - Scripts to setup the apps
-- `.yo-rc.json` files in customer-service, supplier-service, invoice-service, product-service directory that will be used to generate apps
+- `.yo-rc.json` files in fx-price-service directory that will be used to generate apps
 - A `central-server-config/` directory that can be used to edit the registry's config server configuration but _only in dev profile_ (a git repository is used in prod profile)
 
 It depends on [generator-jhipster-docker-compose](https://github.com/jhipster/generator-jhipster-docker-compose) to generate a global docker-compose file.
@@ -87,8 +86,8 @@ It should connect with the registry and show up in the Eureka console.
 
 Also logs should have started to show up in Kibana.
 
-Start customer-service with:
-- `docker-compose up -d customer-service`
+Start fx-price-service with:
+- `docker-compose up -d fx-price-service`
 
 Start the other apps:
 - `docker-compose up -d supplier-service invoice-service`
@@ -96,8 +95,8 @@ Start the other apps:
 #### Scale your apps
 
 You can scale an app by creating **multiple instances** of it (doesn't work on the gateway or other apps that have their ports binded to localhost):
-- `docker-compose scale customer-service=2`
-- `docker-compose scale supplier-service=3`
+- `docker-compose scale fx-price-service=2`
+- `docker-compose scale fx-price-service=3`
 
 Then wait for them to show up at `http://localhost:8761/` and `http://localhost:8080/#/gateway`.
 
@@ -116,49 +115,14 @@ Run cleanup script
 
     ./cleanup.sh
 
-## Deploy to Heroku
-- Download Heroku CLI & set up account
-- Deploy registry: https://dashboard.heroku.com/new?&template=https%3A%2F%2Fgithub.com%2Fjhipster%2Fjhipster-registry
-    (registry url is to be used when deploying gateways and services in next steps)
-- Deploy gateway and services one by one: 
+## Deploy to Google Kubernetes engine
+Refer to the doc in docs directory
 
-    `cd gateway`
-    
-    `yo jhipster:heroku` (enter registry url in the form of https://[appname].herokuapp.com)
-    
-    `heroku config:set JHIPSTER_REGISTRY_URL="https://admin:[password]@[appname].herokuapp.com"` (replace with registry password & registry app name
-    
-   Do the same for all the services, i.e.
-   
-   `cd customer-service`
-       
-   `yo jhipster:heroku`
-   
-   `heroku config:set JHIPSTER_REGISTRY_URL="https://admin:[password]@[appname].herokuapp.com"`
-    
-   -----
-   for heroku clould, if the application is not started within 90s, db might be lock, to unlock, run:
-   
-   `heroku pg:psql -c "update databasechangeloglock set l
-   ocked=false;" --app bss-customer-svc`
-   
-   or re-do:
-   
-   `heroku config:set JHIPSTER_REGISTRY_URL="https://admin:[password]@[appname].herokuapp.com"`
-   
-   if doesn't work, redeploy the application manually from command line:
-   
-   `yo jhipster:heroku`
-   
-   
-## Troubleshooting
-- git error msg in service/gateway projects
-.git folder will be created when running yo jhipster:heroku or other generator inside services/gateways,
-need to remove .git folder under services/gateways.
+
 
 ## Setup Intellij
 - After code is generated (setup_apps.sh, setup_entities.sh), import the pom file in root-module.
-This is the parent module that will load all the child modules (i.e. customer service, gateway etc.)
+This is the parent module that will load all the child modules (i.e. fx price service, gateway etc.)
 
 ## Manual Code Analysis with Sonar Cloud
 - Set up account in Sonar cloud, linked to github account. following the instructions:
