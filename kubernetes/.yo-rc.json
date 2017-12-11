@@ -10,6 +10,6 @@
     "dockerRepositoryName": "pkcool",
     "dockerPushCommand": "docker push",
     "kubernetesNamespace": "default",
-    "kubernetesServiceType": "LoadBalancer"
+    "kubernetesServiceType": "NodePort"
   }
 }

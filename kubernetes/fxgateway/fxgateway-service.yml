@@ -8,7 +8,7 @@ metadata:
 spec:
   selector:
     app: fxgateway
-  type: LoadBalancer
+  type: NodePort
   ports:
   - name: web
     port: 8080
