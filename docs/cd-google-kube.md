@@ -278,6 +278,11 @@ alternatively,
     ```
     replace CLUSTER_NAME with cluster name, i.e. fxts-kube
 
+4. Remove load balance forward rules
+to reduce the cost, as those rules do not get deleted automatically after deleting cluster.
+ ![alt text](images/cd-google-kube/jenkins_loadbalancing_rules.png "Google Jenkins VM")
+ ![alt text](images/cd-google-kube/jenkins_loadbalancing_rules_p2.png "Google Jenkins VM")
+
 
 # Tips
 * Set Alias in bash profile 
