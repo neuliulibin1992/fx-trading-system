@@ -1,5 +1,6 @@
 package com.enginemobi.fx.service;
 
+import com.enginemobi.fx.domain.enumeration.CurrencyRateProvider;
 import com.enginemobi.fx.service.dto.CurrencyMapDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,4 +40,11 @@ public interface CurrencyMapService {
      *  @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * delete currency maps by provider
+     * @param rateProvider
+     * @return
+     */
+    Long deleteByProvider(CurrencyRateProvider rateProvider);
 }

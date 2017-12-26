@@ -1,5 +1,6 @@
 package com.enginemobi.fx.service.impl;
 
+import com.enginemobi.fx.domain.enumeration.CurrencyRateProvider;
 import com.enginemobi.fx.service.CurrencyMapService;
 import com.enginemobi.fx.domain.CurrencyMap;
 import com.enginemobi.fx.repository.CurrencyMapRepository;
@@ -81,5 +82,10 @@ public class CurrencyMapServiceImpl implements CurrencyMapService{
     public void delete(Long id) {
         log.debug("Request to delete CurrencyMap : {}", id);
         currencyMapRepository.delete(id);
+    }
+
+    @Override
+    public Long deleteByProvider(CurrencyRateProvider rateProvider) {
+        return currencyMapRepository.deleteByProvidedBy(rateProvider);
     }
 }
