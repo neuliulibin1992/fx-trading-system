@@ -1,9 +1,12 @@
 package com.enginemobi.fx.service;
 
+import com.enginemobi.fx.domain.CurrencyMap;
 import com.enginemobi.fx.domain.enumeration.CurrencyRateProvider;
 import com.enginemobi.fx.service.dto.CurrencyMapDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * Service Interface for managing CurrencyMap.
@@ -47,4 +50,11 @@ public interface CurrencyMapService {
      * @return
      */
     Long deleteByProvider(CurrencyRateProvider rateProvider);
+
+    /**
+     * Get currency maps by rate provider
+     * @param rateProvider
+     * @return
+     */
+    List<CurrencyMap> getByProvider(CurrencyRateProvider rateProvider);
 }

@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 /**
  * Service Implementation for managing CurrencyMap.
@@ -87,5 +89,10 @@ public class CurrencyMapServiceImpl implements CurrencyMapService{
     @Override
     public Long deleteByProvider(CurrencyRateProvider rateProvider) {
         return currencyMapRepository.deleteByProvidedBy(rateProvider);
+    }
+
+    @Override
+    public List<CurrencyMap> getByProvider(CurrencyRateProvider rateProvider) {
+        return currencyMapRepository.getByProvidedBy(rateProvider);
     }
 }

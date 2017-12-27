@@ -2,9 +2,10 @@ package com.enginemobi.fx.repository;
 
 import com.enginemobi.fx.domain.CurrencyMap;
 import com.enginemobi.fx.domain.enumeration.CurrencyRateProvider;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import org.springframework.data.jpa.repository.*;
+import java.util.List;
 
 
 /**
@@ -20,4 +21,6 @@ public interface CurrencyMapRepository extends JpaRepository<CurrencyMap, Long> 
      * @return
      */
     Long deleteByProvidedBy(CurrencyRateProvider rateProvider);
+
+    List<CurrencyMap> getByProvidedBy(CurrencyRateProvider rateProvider);
 }
