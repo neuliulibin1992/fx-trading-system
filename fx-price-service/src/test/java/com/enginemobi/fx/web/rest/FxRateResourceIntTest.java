@@ -8,6 +8,8 @@ import com.enginemobi.fx.service.FxRateService;
 import com.enginemobi.fx.service.dto.FxRateDTO;
 import com.enginemobi.fx.service.mapper.FxRateMapper;
 import com.enginemobi.fx.web.rest.errors.ExceptionTranslator;
+import com.enginemobi.fx.service.dto.FxRateCriteria;
+import com.enginemobi.fx.service.FxRateQueryService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -79,6 +81,9 @@ public class FxRateResourceIntTest {
     private FxRateService fxRateService;
 
     @Autowired
+    private FxRateQueryService fxRateQueryService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -97,7 +102,7 @@ public class FxRateResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final FxRateResource fxRateResource = new FxRateResource(fxRateService);
+        final FxRateResource fxRateResource = new FxRateResource(fxRateService, fxRateQueryService);
         this.restFxRateMockMvc = MockMvcBuilders.standaloneSetup(fxRateResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -215,6 +220,375 @@ public class FxRateResourceIntTest {
             .andExpect(jsonPath("$.askPrice").value(DEFAULT_ASK_PRICE.intValue()))
             .andExpect(jsonPath("$.midPrice").value(DEFAULT_MID_PRICE.intValue()));
     }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByExtractTimeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where extractTime equals to DEFAULT_EXTRACT_TIME
+        defaultFxRateShouldBeFound("extractTime.equals=" + DEFAULT_EXTRACT_TIME);
+
+        // Get all the fxRateList where extractTime equals to UPDATED_EXTRACT_TIME
+        defaultFxRateShouldNotBeFound("extractTime.equals=" + UPDATED_EXTRACT_TIME);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByExtractTimeIsInShouldWork() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where extractTime in DEFAULT_EXTRACT_TIME or UPDATED_EXTRACT_TIME
+        defaultFxRateShouldBeFound("extractTime.in=" + DEFAULT_EXTRACT_TIME + "," + UPDATED_EXTRACT_TIME);
+
+        // Get all the fxRateList where extractTime equals to UPDATED_EXTRACT_TIME
+        defaultFxRateShouldNotBeFound("extractTime.in=" + UPDATED_EXTRACT_TIME);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByExtractTimeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where extractTime is not null
+        defaultFxRateShouldBeFound("extractTime.specified=true");
+
+        // Get all the fxRateList where extractTime is null
+        defaultFxRateShouldNotBeFound("extractTime.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByArrivalDateIsEqualToSomething() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where arrivalDate equals to DEFAULT_ARRIVAL_DATE
+        defaultFxRateShouldBeFound("arrivalDate.equals=" + DEFAULT_ARRIVAL_DATE);
+
+        // Get all the fxRateList where arrivalDate equals to UPDATED_ARRIVAL_DATE
+        defaultFxRateShouldNotBeFound("arrivalDate.equals=" + UPDATED_ARRIVAL_DATE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByArrivalDateIsInShouldWork() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where arrivalDate in DEFAULT_ARRIVAL_DATE or UPDATED_ARRIVAL_DATE
+        defaultFxRateShouldBeFound("arrivalDate.in=" + DEFAULT_ARRIVAL_DATE + "," + UPDATED_ARRIVAL_DATE);
+
+        // Get all the fxRateList where arrivalDate equals to UPDATED_ARRIVAL_DATE
+        defaultFxRateShouldNotBeFound("arrivalDate.in=" + UPDATED_ARRIVAL_DATE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByArrivalDateIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where arrivalDate is not null
+        defaultFxRateShouldBeFound("arrivalDate.specified=true");
+
+        // Get all the fxRateList where arrivalDate is null
+        defaultFxRateShouldNotBeFound("arrivalDate.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByArrivalDateIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where arrivalDate greater than or equals to DEFAULT_ARRIVAL_DATE
+        defaultFxRateShouldBeFound("arrivalDate.greaterOrEqualThan=" + DEFAULT_ARRIVAL_DATE);
+
+        // Get all the fxRateList where arrivalDate greater than or equals to UPDATED_ARRIVAL_DATE
+        defaultFxRateShouldNotBeFound("arrivalDate.greaterOrEqualThan=" + UPDATED_ARRIVAL_DATE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByArrivalDateIsLessThanSomething() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where arrivalDate less than or equals to DEFAULT_ARRIVAL_DATE
+        defaultFxRateShouldNotBeFound("arrivalDate.lessThan=" + DEFAULT_ARRIVAL_DATE);
+
+        // Get all the fxRateList where arrivalDate less than or equals to UPDATED_ARRIVAL_DATE
+        defaultFxRateShouldBeFound("arrivalDate.lessThan=" + UPDATED_ARRIVAL_DATE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByCurrencyQuoteIsEqualToSomething() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where currencyQuote equals to DEFAULT_CURRENCY_QUOTE
+        defaultFxRateShouldBeFound("currencyQuote.equals=" + DEFAULT_CURRENCY_QUOTE);
+
+        // Get all the fxRateList where currencyQuote equals to UPDATED_CURRENCY_QUOTE
+        defaultFxRateShouldNotBeFound("currencyQuote.equals=" + UPDATED_CURRENCY_QUOTE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByCurrencyQuoteIsInShouldWork() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where currencyQuote in DEFAULT_CURRENCY_QUOTE or UPDATED_CURRENCY_QUOTE
+        defaultFxRateShouldBeFound("currencyQuote.in=" + DEFAULT_CURRENCY_QUOTE + "," + UPDATED_CURRENCY_QUOTE);
+
+        // Get all the fxRateList where currencyQuote equals to UPDATED_CURRENCY_QUOTE
+        defaultFxRateShouldNotBeFound("currencyQuote.in=" + UPDATED_CURRENCY_QUOTE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByCurrencyQuoteIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where currencyQuote is not null
+        defaultFxRateShouldBeFound("currencyQuote.specified=true");
+
+        // Get all the fxRateList where currencyQuote is null
+        defaultFxRateShouldNotBeFound("currencyQuote.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByCurrencyBaseCodeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where currencyBaseCode equals to DEFAULT_CURRENCY_BASE_CODE
+        defaultFxRateShouldBeFound("currencyBaseCode.equals=" + DEFAULT_CURRENCY_BASE_CODE);
+
+        // Get all the fxRateList where currencyBaseCode equals to UPDATED_CURRENCY_BASE_CODE
+        defaultFxRateShouldNotBeFound("currencyBaseCode.equals=" + UPDATED_CURRENCY_BASE_CODE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByCurrencyBaseCodeIsInShouldWork() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where currencyBaseCode in DEFAULT_CURRENCY_BASE_CODE or UPDATED_CURRENCY_BASE_CODE
+        defaultFxRateShouldBeFound("currencyBaseCode.in=" + DEFAULT_CURRENCY_BASE_CODE + "," + UPDATED_CURRENCY_BASE_CODE);
+
+        // Get all the fxRateList where currencyBaseCode equals to UPDATED_CURRENCY_BASE_CODE
+        defaultFxRateShouldNotBeFound("currencyBaseCode.in=" + UPDATED_CURRENCY_BASE_CODE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByCurrencyBaseCodeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where currencyBaseCode is not null
+        defaultFxRateShouldBeFound("currencyBaseCode.specified=true");
+
+        // Get all the fxRateList where currencyBaseCode is null
+        defaultFxRateShouldNotBeFound("currencyBaseCode.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByCurrencyNonBaseCodeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where currencyNonBaseCode equals to DEFAULT_CURRENCY_NON_BASE_CODE
+        defaultFxRateShouldBeFound("currencyNonBaseCode.equals=" + DEFAULT_CURRENCY_NON_BASE_CODE);
+
+        // Get all the fxRateList where currencyNonBaseCode equals to UPDATED_CURRENCY_NON_BASE_CODE
+        defaultFxRateShouldNotBeFound("currencyNonBaseCode.equals=" + UPDATED_CURRENCY_NON_BASE_CODE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByCurrencyNonBaseCodeIsInShouldWork() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where currencyNonBaseCode in DEFAULT_CURRENCY_NON_BASE_CODE or UPDATED_CURRENCY_NON_BASE_CODE
+        defaultFxRateShouldBeFound("currencyNonBaseCode.in=" + DEFAULT_CURRENCY_NON_BASE_CODE + "," + UPDATED_CURRENCY_NON_BASE_CODE);
+
+        // Get all the fxRateList where currencyNonBaseCode equals to UPDATED_CURRENCY_NON_BASE_CODE
+        defaultFxRateShouldNotBeFound("currencyNonBaseCode.in=" + UPDATED_CURRENCY_NON_BASE_CODE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByCurrencyNonBaseCodeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where currencyNonBaseCode is not null
+        defaultFxRateShouldBeFound("currencyNonBaseCode.specified=true");
+
+        // Get all the fxRateList where currencyNonBaseCode is null
+        defaultFxRateShouldNotBeFound("currencyNonBaseCode.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByBidPriceIsEqualToSomething() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where bidPrice equals to DEFAULT_BID_PRICE
+        defaultFxRateShouldBeFound("bidPrice.equals=" + DEFAULT_BID_PRICE);
+
+        // Get all the fxRateList where bidPrice equals to UPDATED_BID_PRICE
+        defaultFxRateShouldNotBeFound("bidPrice.equals=" + UPDATED_BID_PRICE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByBidPriceIsInShouldWork() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where bidPrice in DEFAULT_BID_PRICE or UPDATED_BID_PRICE
+        defaultFxRateShouldBeFound("bidPrice.in=" + DEFAULT_BID_PRICE + "," + UPDATED_BID_PRICE);
+
+        // Get all the fxRateList where bidPrice equals to UPDATED_BID_PRICE
+        defaultFxRateShouldNotBeFound("bidPrice.in=" + UPDATED_BID_PRICE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByBidPriceIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where bidPrice is not null
+        defaultFxRateShouldBeFound("bidPrice.specified=true");
+
+        // Get all the fxRateList where bidPrice is null
+        defaultFxRateShouldNotBeFound("bidPrice.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByAskPriceIsEqualToSomething() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where askPrice equals to DEFAULT_ASK_PRICE
+        defaultFxRateShouldBeFound("askPrice.equals=" + DEFAULT_ASK_PRICE);
+
+        // Get all the fxRateList where askPrice equals to UPDATED_ASK_PRICE
+        defaultFxRateShouldNotBeFound("askPrice.equals=" + UPDATED_ASK_PRICE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByAskPriceIsInShouldWork() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where askPrice in DEFAULT_ASK_PRICE or UPDATED_ASK_PRICE
+        defaultFxRateShouldBeFound("askPrice.in=" + DEFAULT_ASK_PRICE + "," + UPDATED_ASK_PRICE);
+
+        // Get all the fxRateList where askPrice equals to UPDATED_ASK_PRICE
+        defaultFxRateShouldNotBeFound("askPrice.in=" + UPDATED_ASK_PRICE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByAskPriceIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where askPrice is not null
+        defaultFxRateShouldBeFound("askPrice.specified=true");
+
+        // Get all the fxRateList where askPrice is null
+        defaultFxRateShouldNotBeFound("askPrice.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByMidPriceIsEqualToSomething() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where midPrice equals to DEFAULT_MID_PRICE
+        defaultFxRateShouldBeFound("midPrice.equals=" + DEFAULT_MID_PRICE);
+
+        // Get all the fxRateList where midPrice equals to UPDATED_MID_PRICE
+        defaultFxRateShouldNotBeFound("midPrice.equals=" + UPDATED_MID_PRICE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByMidPriceIsInShouldWork() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where midPrice in DEFAULT_MID_PRICE or UPDATED_MID_PRICE
+        defaultFxRateShouldBeFound("midPrice.in=" + DEFAULT_MID_PRICE + "," + UPDATED_MID_PRICE);
+
+        // Get all the fxRateList where midPrice equals to UPDATED_MID_PRICE
+        defaultFxRateShouldNotBeFound("midPrice.in=" + UPDATED_MID_PRICE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllFxRatesByMidPriceIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        fxRateRepository.saveAndFlush(fxRate);
+
+        // Get all the fxRateList where midPrice is not null
+        defaultFxRateShouldBeFound("midPrice.specified=true");
+
+        // Get all the fxRateList where midPrice is null
+        defaultFxRateShouldNotBeFound("midPrice.specified=false");
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned
+     */
+    private void defaultFxRateShouldBeFound(String filter) throws Exception {
+        restFxRateMockMvc.perform(get("/api/fx-rates?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(fxRate.getId().intValue())))
+            .andExpect(jsonPath("$.[*].extractTime").value(hasItem(DEFAULT_EXTRACT_TIME.toString())))
+            .andExpect(jsonPath("$.[*].arrivalDate").value(hasItem(DEFAULT_ARRIVAL_DATE.toString())))
+            .andExpect(jsonPath("$.[*].currencyQuote").value(hasItem(DEFAULT_CURRENCY_QUOTE.toString())))
+            .andExpect(jsonPath("$.[*].currencyBaseCode").value(hasItem(DEFAULT_CURRENCY_BASE_CODE.toString())))
+            .andExpect(jsonPath("$.[*].currencyNonBaseCode").value(hasItem(DEFAULT_CURRENCY_NON_BASE_CODE.toString())))
+            .andExpect(jsonPath("$.[*].bidPrice").value(hasItem(DEFAULT_BID_PRICE.intValue())))
+            .andExpect(jsonPath("$.[*].askPrice").value(hasItem(DEFAULT_ASK_PRICE.intValue())))
+            .andExpect(jsonPath("$.[*].midPrice").value(hasItem(DEFAULT_MID_PRICE.intValue())));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned
+     */
+    private void defaultFxRateShouldNotBeFound(String filter) throws Exception {
+        restFxRateMockMvc.perform(get("/api/fx-rates?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+    }
+
 
     @Test
     @Transactional

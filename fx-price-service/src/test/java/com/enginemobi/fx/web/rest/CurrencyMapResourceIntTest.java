@@ -8,6 +8,8 @@ import com.enginemobi.fx.service.CurrencyMapService;
 import com.enginemobi.fx.service.dto.CurrencyMapDTO;
 import com.enginemobi.fx.service.mapper.CurrencyMapMapper;
 import com.enginemobi.fx.web.rest.errors.ExceptionTranslator;
+import com.enginemobi.fx.service.dto.CurrencyMapCriteria;
+import com.enginemobi.fx.service.CurrencyMapQueryService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -63,6 +65,9 @@ public class CurrencyMapResourceIntTest {
     private CurrencyMapService currencyMapService;
 
     @Autowired
+    private CurrencyMapQueryService currencyMapQueryService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -81,7 +86,7 @@ public class CurrencyMapResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CurrencyMapResource currencyMapResource = new CurrencyMapResource(currencyMapService);
+        final CurrencyMapResource currencyMapResource = new CurrencyMapResource(currencyMapService, currencyMapQueryService);
         this.restCurrencyMapMockMvc = MockMvcBuilders.standaloneSetup(currencyMapResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -183,6 +188,188 @@ public class CurrencyMapResourceIntTest {
             .andExpect(jsonPath("$.currencyNonBaseCode").value(DEFAULT_CURRENCY_NON_BASE_CODE.toString()))
             .andExpect(jsonPath("$.rateProvider").value(DEFAULT_RATE_PROVIDER.toString()));
     }
+
+    @Test
+    @Transactional
+    public void getAllCurrencyMapsByCurrencyQuoteIsEqualToSomething() throws Exception {
+        // Initialize the database
+        currencyMapRepository.saveAndFlush(currencyMap);
+
+        // Get all the currencyMapList where currencyQuote equals to DEFAULT_CURRENCY_QUOTE
+        defaultCurrencyMapShouldBeFound("currencyQuote.equals=" + DEFAULT_CURRENCY_QUOTE);
+
+        // Get all the currencyMapList where currencyQuote equals to UPDATED_CURRENCY_QUOTE
+        defaultCurrencyMapShouldNotBeFound("currencyQuote.equals=" + UPDATED_CURRENCY_QUOTE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCurrencyMapsByCurrencyQuoteIsInShouldWork() throws Exception {
+        // Initialize the database
+        currencyMapRepository.saveAndFlush(currencyMap);
+
+        // Get all the currencyMapList where currencyQuote in DEFAULT_CURRENCY_QUOTE or UPDATED_CURRENCY_QUOTE
+        defaultCurrencyMapShouldBeFound("currencyQuote.in=" + DEFAULT_CURRENCY_QUOTE + "," + UPDATED_CURRENCY_QUOTE);
+
+        // Get all the currencyMapList where currencyQuote equals to UPDATED_CURRENCY_QUOTE
+        defaultCurrencyMapShouldNotBeFound("currencyQuote.in=" + UPDATED_CURRENCY_QUOTE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCurrencyMapsByCurrencyQuoteIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        currencyMapRepository.saveAndFlush(currencyMap);
+
+        // Get all the currencyMapList where currencyQuote is not null
+        defaultCurrencyMapShouldBeFound("currencyQuote.specified=true");
+
+        // Get all the currencyMapList where currencyQuote is null
+        defaultCurrencyMapShouldNotBeFound("currencyQuote.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllCurrencyMapsByCurrencyBaseCodeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        currencyMapRepository.saveAndFlush(currencyMap);
+
+        // Get all the currencyMapList where currencyBaseCode equals to DEFAULT_CURRENCY_BASE_CODE
+        defaultCurrencyMapShouldBeFound("currencyBaseCode.equals=" + DEFAULT_CURRENCY_BASE_CODE);
+
+        // Get all the currencyMapList where currencyBaseCode equals to UPDATED_CURRENCY_BASE_CODE
+        defaultCurrencyMapShouldNotBeFound("currencyBaseCode.equals=" + UPDATED_CURRENCY_BASE_CODE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCurrencyMapsByCurrencyBaseCodeIsInShouldWork() throws Exception {
+        // Initialize the database
+        currencyMapRepository.saveAndFlush(currencyMap);
+
+        // Get all the currencyMapList where currencyBaseCode in DEFAULT_CURRENCY_BASE_CODE or UPDATED_CURRENCY_BASE_CODE
+        defaultCurrencyMapShouldBeFound("currencyBaseCode.in=" + DEFAULT_CURRENCY_BASE_CODE + "," + UPDATED_CURRENCY_BASE_CODE);
+
+        // Get all the currencyMapList where currencyBaseCode equals to UPDATED_CURRENCY_BASE_CODE
+        defaultCurrencyMapShouldNotBeFound("currencyBaseCode.in=" + UPDATED_CURRENCY_BASE_CODE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCurrencyMapsByCurrencyBaseCodeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        currencyMapRepository.saveAndFlush(currencyMap);
+
+        // Get all the currencyMapList where currencyBaseCode is not null
+        defaultCurrencyMapShouldBeFound("currencyBaseCode.specified=true");
+
+        // Get all the currencyMapList where currencyBaseCode is null
+        defaultCurrencyMapShouldNotBeFound("currencyBaseCode.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllCurrencyMapsByCurrencyNonBaseCodeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        currencyMapRepository.saveAndFlush(currencyMap);
+
+        // Get all the currencyMapList where currencyNonBaseCode equals to DEFAULT_CURRENCY_NON_BASE_CODE
+        defaultCurrencyMapShouldBeFound("currencyNonBaseCode.equals=" + DEFAULT_CURRENCY_NON_BASE_CODE);
+
+        // Get all the currencyMapList where currencyNonBaseCode equals to UPDATED_CURRENCY_NON_BASE_CODE
+        defaultCurrencyMapShouldNotBeFound("currencyNonBaseCode.equals=" + UPDATED_CURRENCY_NON_BASE_CODE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCurrencyMapsByCurrencyNonBaseCodeIsInShouldWork() throws Exception {
+        // Initialize the database
+        currencyMapRepository.saveAndFlush(currencyMap);
+
+        // Get all the currencyMapList where currencyNonBaseCode in DEFAULT_CURRENCY_NON_BASE_CODE or UPDATED_CURRENCY_NON_BASE_CODE
+        defaultCurrencyMapShouldBeFound("currencyNonBaseCode.in=" + DEFAULT_CURRENCY_NON_BASE_CODE + "," + UPDATED_CURRENCY_NON_BASE_CODE);
+
+        // Get all the currencyMapList where currencyNonBaseCode equals to UPDATED_CURRENCY_NON_BASE_CODE
+        defaultCurrencyMapShouldNotBeFound("currencyNonBaseCode.in=" + UPDATED_CURRENCY_NON_BASE_CODE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCurrencyMapsByCurrencyNonBaseCodeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        currencyMapRepository.saveAndFlush(currencyMap);
+
+        // Get all the currencyMapList where currencyNonBaseCode is not null
+        defaultCurrencyMapShouldBeFound("currencyNonBaseCode.specified=true");
+
+        // Get all the currencyMapList where currencyNonBaseCode is null
+        defaultCurrencyMapShouldNotBeFound("currencyNonBaseCode.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllCurrencyMapsByRateProviderIsEqualToSomething() throws Exception {
+        // Initialize the database
+        currencyMapRepository.saveAndFlush(currencyMap);
+
+        // Get all the currencyMapList where rateProvider equals to DEFAULT_RATE_PROVIDER
+        defaultCurrencyMapShouldBeFound("rateProvider.equals=" + DEFAULT_RATE_PROVIDER);
+
+        // Get all the currencyMapList where rateProvider equals to UPDATED_RATE_PROVIDER
+        defaultCurrencyMapShouldNotBeFound("rateProvider.equals=" + UPDATED_RATE_PROVIDER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCurrencyMapsByRateProviderIsInShouldWork() throws Exception {
+        // Initialize the database
+        currencyMapRepository.saveAndFlush(currencyMap);
+
+        // Get all the currencyMapList where rateProvider in DEFAULT_RATE_PROVIDER or UPDATED_RATE_PROVIDER
+        defaultCurrencyMapShouldBeFound("rateProvider.in=" + DEFAULT_RATE_PROVIDER + "," + UPDATED_RATE_PROVIDER);
+
+        // Get all the currencyMapList where rateProvider equals to UPDATED_RATE_PROVIDER
+        defaultCurrencyMapShouldNotBeFound("rateProvider.in=" + UPDATED_RATE_PROVIDER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCurrencyMapsByRateProviderIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        currencyMapRepository.saveAndFlush(currencyMap);
+
+        // Get all the currencyMapList where rateProvider is not null
+        defaultCurrencyMapShouldBeFound("rateProvider.specified=true");
+
+        // Get all the currencyMapList where rateProvider is null
+        defaultCurrencyMapShouldNotBeFound("rateProvider.specified=false");
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned
+     */
+    private void defaultCurrencyMapShouldBeFound(String filter) throws Exception {
+        restCurrencyMapMockMvc.perform(get("/api/currency-maps?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(currencyMap.getId().intValue())))
+            .andExpect(jsonPath("$.[*].currencyQuote").value(hasItem(DEFAULT_CURRENCY_QUOTE.toString())))
+            .andExpect(jsonPath("$.[*].currencyBaseCode").value(hasItem(DEFAULT_CURRENCY_BASE_CODE.toString())))
+            .andExpect(jsonPath("$.[*].currencyNonBaseCode").value(hasItem(DEFAULT_CURRENCY_NON_BASE_CODE.toString())))
+            .andExpect(jsonPath("$.[*].rateProvider").value(hasItem(DEFAULT_RATE_PROVIDER.toString())));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned
+     */
+    private void defaultCurrencyMapShouldNotBeFound(String filter) throws Exception {
+        restCurrencyMapMockMvc.perform(get("/api/currency-maps?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+    }
+
 
     @Test
     @Transactional

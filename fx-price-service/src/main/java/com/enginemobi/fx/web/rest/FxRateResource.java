@@ -5,6 +5,8 @@ import com.enginemobi.fx.service.FxRateService;
 import com.enginemobi.fx.web.rest.util.HeaderUtil;
 import com.enginemobi.fx.web.rest.util.PaginationUtil;
 import com.enginemobi.fx.service.dto.FxRateDTO;
+import com.enginemobi.fx.service.dto.FxRateCriteria;
+import com.enginemobi.fx.service.FxRateQueryService;
 import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -34,9 +36,11 @@ public class FxRateResource {
     private static final String ENTITY_NAME = "fxRate";
 
     private final FxRateService fxRateService;
+    private final FxRateQueryService fxRateQueryService;
 
-    public FxRateResource(FxRateService fxRateService) {
+    public FxRateResource(FxRateService fxRateService, FxRateQueryService fxRateQueryService) {
         this.fxRateService = fxRateService;
+        this.fxRateQueryService = fxRateQueryService;
     }
 
     /**
@@ -85,13 +89,14 @@ public class FxRateResource {
      * GET  /fx-rates : get all the fxRates.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of fxRates in body
      */
     @GetMapping("/fx-rates")
     @Timed
-    public ResponseEntity<List<FxRateDTO>> getAllFxRates(@ApiParam Pageable pageable) {
-        log.debug("REST request to get a page of FxRates");
-        Page<FxRateDTO> page = fxRateService.findAll(pageable);
+    public ResponseEntity<List<FxRateDTO>> getAllFxRates(FxRateCriteria criteria,@ApiParam Pageable pageable) {
+        log.debug("REST request to get FxRates by criteria: {}", criteria);
+        Page<FxRateDTO> page = fxRateQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/fx-rates");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

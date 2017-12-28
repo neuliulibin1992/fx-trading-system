@@ -40,5 +40,6 @@
     "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",
+    "jpaMetamodelFiltering": true,
     "microserviceName": "fxPriceService"
 }
