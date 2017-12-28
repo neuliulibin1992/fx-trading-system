@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface FxRateRepository extends JpaRepository<FxRate, Long> {
+public interface FxRateRepository extends JpaRepository<FxRate, Long>, JpaSpecificationExecutor<FxRate> {
 
 }

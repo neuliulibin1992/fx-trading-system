@@ -5,6 +5,8 @@ import com.enginemobi.fx.service.CurrencyMapService;
 import com.enginemobi.fx.web.rest.util.HeaderUtil;
 import com.enginemobi.fx.web.rest.util.PaginationUtil;
 import com.enginemobi.fx.service.dto.CurrencyMapDTO;
+import com.enginemobi.fx.service.dto.CurrencyMapCriteria;
+import com.enginemobi.fx.service.CurrencyMapQueryService;
 import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -34,9 +36,11 @@ public class CurrencyMapResource {
     private static final String ENTITY_NAME = "currencyMap";
 
     private final CurrencyMapService currencyMapService;
+    private final CurrencyMapQueryService currencyMapQueryService;
 
-    public CurrencyMapResource(CurrencyMapService currencyMapService) {
+    public CurrencyMapResource(CurrencyMapService currencyMapService, CurrencyMapQueryService currencyMapQueryService) {
         this.currencyMapService = currencyMapService;
+        this.currencyMapQueryService = currencyMapQueryService;
     }
 
     /**
@@ -85,13 +89,14 @@ public class CurrencyMapResource {
      * GET  /currency-maps : get all the currencyMaps.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of currencyMaps in body
      */
     @GetMapping("/currency-maps")
     @Timed
-    public ResponseEntity<List<CurrencyMapDTO>> getAllCurrencyMaps(@ApiParam Pageable pageable) {
-        log.debug("REST request to get a page of CurrencyMaps");
-        Page<CurrencyMapDTO> page = currencyMapService.findAll(pageable);
+    public ResponseEntity<List<CurrencyMapDTO>> getAllCurrencyMaps(CurrencyMapCriteria criteria,@ApiParam Pageable pageable) {
+        log.debug("REST request to get CurrencyMaps by criteria: {}", criteria);
+        Page<CurrencyMapDTO> page = currencyMapQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/currency-maps");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
