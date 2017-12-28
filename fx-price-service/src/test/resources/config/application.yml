@@ -114,3 +114,14 @@ jhipster:
 # ===================================================================
 
 application:
+    rate-provider:
+        one-forge:
+            enabled: true
+            base-url: https://forex.1forge.com/1.0.2/
+            request-url: https://forex.1forge.com/1.0.2/
+            api-key: gUTK4S59dw5Zcbk1X1UJwCpaFWBuuZZM
+            fixed-delay: 180000 # for scheduling: the duration between the end of last execution and the start of next execution is fixed to 1 hour (3 minutes)
+        currency-layer:
+            enabled: false
+            base-url: http://apilayer.net/api/
+            fixed-delay: 3600000 # get data every 1 hour.

@@ -1,5 +1,6 @@
 package com.enginemobi.fx.service.impl;
 
+import com.enginemobi.fx.domain.enumeration.CurrencyRateProvider;
 import com.enginemobi.fx.service.CurrencyMapService;
 import com.enginemobi.fx.domain.CurrencyMap;
 import com.enginemobi.fx.repository.CurrencyMapRepository;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 /**
@@ -81,5 +84,15 @@ public class CurrencyMapServiceImpl implements CurrencyMapService{
     public void delete(Long id) {
         log.debug("Request to delete CurrencyMap : {}", id);
         currencyMapRepository.delete(id);
+    }
+
+    @Override
+    public Long deleteByProvider(CurrencyRateProvider rateProvider) {
+        return currencyMapRepository.deleteByProvidedBy(rateProvider);
+    }
+
+    @Override
+    public List<CurrencyMap> getByProvider(CurrencyRateProvider rateProvider) {
+        return currencyMapRepository.getByProvidedBy(rateProvider);
     }
 }
