@@ -14,7 +14,7 @@ entity CurrencyMap {
     currencyQuote String,
     currencyBaseCode String,
     currencyNonBaseCode String,
-    providedBy CurrencyRateProvider,
+    rateProvider CurrencyRateProvider,
 }
 
 enum CurrencyRateProvider {

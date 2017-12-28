@@ -41,7 +41,7 @@ describe('CurrencyMap e2e test', () => {
         expect(currencyMapDialogPage.getCurrencyBaseCodeInput()).toMatch('currencyBaseCode');
         currencyMapDialogPage.setCurrencyNonBaseCodeInput('currencyNonBaseCode');
         expect(currencyMapDialogPage.getCurrencyNonBaseCodeInput()).toMatch('currencyNonBaseCode');
-        currencyMapDialogPage.providedBySelectLastOption();
+        currencyMapDialogPage.rateProviderSelectLastOption();
         currencyMapDialogPage.save();
         expect(currencyMapDialogPage.getSaveButton().isPresent()).toBeFalsy();
     }); 
@@ -71,7 +71,7 @@ export class CurrencyMapDialogPage {
     currencyQuoteInput = element(by.css('input#field_currencyQuote'));
     currencyBaseCodeInput = element(by.css('input#field_currencyBaseCode'));
     currencyNonBaseCodeInput = element(by.css('input#field_currencyNonBaseCode'));
-    providedBySelect = element(by.css('select#field_providedBy'));
+    rateProviderSelect = element(by.css('select#field_rateProvider'));
 
     getModalTitle() {
         return this.modalTitle.getAttribute('jhiTranslate');
@@ -101,16 +101,16 @@ export class CurrencyMapDialogPage {
         return this.currencyNonBaseCodeInput.getAttribute('value');
     }
 
-    setProvidedBySelect = function (providedBy) {
-        this.providedBySelect.sendKeys(providedBy);
+    setRateProviderSelect = function (rateProvider) {
+        this.rateProviderSelect.sendKeys(rateProvider);
     }
 
-    getProvidedBySelect = function () {
-        return this.providedBySelect.element(by.css('option:checked')).getText();
+    getRateProviderSelect = function () {
+        return this.rateProviderSelect.element(by.css('option:checked')).getText();
     }
 
-    providedBySelectLastOption = function () {
-        this.providedBySelect.all(by.tagName('option')).last().click();
+    rateProviderSelectLastOption = function () {
+        this.rateProviderSelect.all(by.tagName('option')).last().click();
     }
     save() {
         this.saveButton.click();

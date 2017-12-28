@@ -68,7 +68,7 @@ class CurrencyMapGatlingTest extends Simulation {
             .exec(http("Create new currencyMap")
             .post("/fxpriceservice/api/currency-maps")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "currencyQuote":"SAMPLE_TEXT", "currencyBaseCode":"SAMPLE_TEXT", "currencyNonBaseCode":"SAMPLE_TEXT", "providedBy":null}""")).asJSON
+            .body(StringBody("""{"id":null, "currencyQuote":"SAMPLE_TEXT", "currencyBaseCode":"SAMPLE_TEXT", "currencyNonBaseCode":"SAMPLE_TEXT", "rateProvider":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_currencyMap_url"))).exitHereIfFailed
             .pause(10)

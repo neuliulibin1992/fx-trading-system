@@ -15,7 +15,7 @@
             "currencyQuote": "Currency Quote",
             "currencyBaseCode": "Currency Base Code",
             "currencyNonBaseCode": "Currency Non Base Code",
-            "providedBy": "Provided By"
+            "rateProvider": "Rate Provider"
         }
     },
     "fxPriceServiceApp": {

@@ -88,11 +88,11 @@ public class CurrencyMapServiceImpl implements CurrencyMapService{
 
     @Override
     public Long deleteByProvider(CurrencyRateProvider rateProvider) {
-        return currencyMapRepository.deleteByProvidedBy(rateProvider);
+        return currencyMapRepository.deleteByRateProvider(rateProvider);
     }
 
     @Override
     public List<CurrencyMap> getByProvider(CurrencyRateProvider rateProvider) {
-        return currencyMapRepository.getByProvidedBy(rateProvider);
+        return currencyMapRepository.getByRateProvider(rateProvider);
     }
 }

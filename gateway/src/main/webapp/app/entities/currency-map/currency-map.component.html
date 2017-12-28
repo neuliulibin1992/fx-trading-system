@@ -20,7 +20,7 @@
             <th jhiSortBy="currencyQuote"><span jhiTranslate="fxgatewayApp.currencyMap.currencyQuote">Currency Quote</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="currencyBaseCode"><span jhiTranslate="fxgatewayApp.currencyMap.currencyBaseCode">Currency Base Code</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="currencyNonBaseCode"><span jhiTranslate="fxgatewayApp.currencyMap.currencyNonBaseCode">Currency Non Base Code</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="providedBy"><span jhiTranslate="fxgatewayApp.currencyMap.providedBy">Provided By</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="rateProvider"><span jhiTranslate="fxgatewayApp.currencyMap.rateProvider">Rate Provider</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -30,7 +30,7 @@
                 <td>{{currencyMap.currencyQuote}}</td>
                 <td>{{currencyMap.currencyBaseCode}}</td>
                 <td>{{currencyMap.currencyNonBaseCode}}</td>
-                <td jhiTranslate="{{'fxgatewayApp.CurrencyRateProvider.' + currencyMap.providedBy}}">{{currencyMap.providedBy}}</td>
+                <td jhiTranslate="{{'fxgatewayApp.CurrencyRateProvider.' + currencyMap.rateProvider}}">{{currencyMap.rateProvider}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

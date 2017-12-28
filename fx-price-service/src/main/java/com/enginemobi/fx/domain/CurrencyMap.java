@@ -1,13 +1,12 @@
 package com.enginemobi.fx.domain;
 
+import com.enginemobi.fx.domain.enumeration.CurrencyRateProvider;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-
-import com.enginemobi.fx.domain.enumeration.CurrencyRateProvider;
 
 /**
  * A CurrencyMap.
@@ -33,8 +32,8 @@ public class CurrencyMap implements Serializable {
     private String currencyNonBaseCode;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "provided_by")
-    private CurrencyRateProvider providedBy;
+    @Column(name = "rate_provider")
+    private CurrencyRateProvider rateProvider;
 
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
@@ -84,17 +83,17 @@ public class CurrencyMap implements Serializable {
         this.currencyNonBaseCode = currencyNonBaseCode;
     }
 
-    public CurrencyRateProvider getProvidedBy() {
-        return providedBy;
+    public CurrencyRateProvider getRateProvider() {
+        return rateProvider;
     }
 
-    public CurrencyMap providedBy(CurrencyRateProvider providedBy) {
-        this.providedBy = providedBy;
+    public CurrencyMap rateProvider(CurrencyRateProvider rateProvider) {
+        this.rateProvider = rateProvider;
         return this;
     }
 
-    public void setProvidedBy(CurrencyRateProvider providedBy) {
-        this.providedBy = providedBy;
+    public void setRateProvider(CurrencyRateProvider rateProvider) {
+        this.rateProvider = rateProvider;
     }
     // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
@@ -125,7 +124,7 @@ public class CurrencyMap implements Serializable {
             ", currencyQuote='" + getCurrencyQuote() + "'" +
             ", currencyBaseCode='" + getCurrencyBaseCode() + "'" +
             ", currencyNonBaseCode='" + getCurrencyNonBaseCode() + "'" +
-            ", providedBy='" + getProvidedBy() + "'" +
+            ", rateProvider='" + getRateProvider() + "'" +
             "}";
     }
 }

@@ -28,8 +28,8 @@
                 [(ngModel)]="currencyMap.currencyNonBaseCode"  />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="fxgatewayApp.currencyMap.providedBy" for="field_providedBy">Provided By</label>
-            <select class="form-control" name="providedBy" [(ngModel)]="currencyMap.providedBy" id="field_providedBy" >
+            <label class="form-control-label" jhiTranslate="fxgatewayApp.currencyMap.rateProvider" for="field_rateProvider">Rate Provider</label>
+            <select class="form-control" name="rateProvider" [(ngModel)]="currencyMap.rateProvider" id="field_rateProvider" >
                 <option value="ONE_FORGE">{{'fxgatewayApp.CurrencyRateProvider.ONE_FORGE' | translate}}</option>
                 <option value="CURRENCY_LAYER">{{'fxgatewayApp.CurrencyRateProvider.CURRENCY_LAYER' | translate}}</option>
             </select>

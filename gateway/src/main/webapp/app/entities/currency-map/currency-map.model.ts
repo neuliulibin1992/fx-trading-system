@@ -11,7 +11,7 @@ export class CurrencyMap implements BaseEntity {
         public currencyQuote?: string,
         public currencyBaseCode?: string,
         public currencyNonBaseCode?: string,
-        public providedBy?: CurrencyRateProvider,
+        public rateProvider?: CurrencyRateProvider,
     ) {
     }
 }
