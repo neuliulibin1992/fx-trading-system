@@ -1,9 +1,10 @@
 package com.enginemobi.fx.service.dto;
 
 
+import com.enginemobi.fx.domain.enumeration.CurrencyRateProvider;
+
 import java.io.Serializable;
 import java.util.Objects;
-import com.enginemobi.fx.domain.enumeration.CurrencyRateProvider;
 
 /**
  * A DTO for the CurrencyMap entity.
@@ -18,7 +19,7 @@ public class CurrencyMapDTO implements Serializable {
 
     private String currencyNonBaseCode;
 
-    private CurrencyRateProvider providedBy;
+    private CurrencyRateProvider rateProvider;
 
     public Long getId() {
         return id;
@@ -52,12 +53,12 @@ public class CurrencyMapDTO implements Serializable {
         this.currencyNonBaseCode = currencyNonBaseCode;
     }
 
-    public CurrencyRateProvider getProvidedBy() {
-        return providedBy;
+    public CurrencyRateProvider getRateProvider() {
+        return rateProvider;
     }
 
-    public void setProvidedBy(CurrencyRateProvider providedBy) {
-        this.providedBy = providedBy;
+    public void setRateProvider(CurrencyRateProvider rateProvider) {
+        this.rateProvider = rateProvider;
     }
 
     @Override
@@ -88,7 +89,7 @@ public class CurrencyMapDTO implements Serializable {
             ", currencyQuote='" + getCurrencyQuote() + "'" +
             ", currencyBaseCode='" + getCurrencyBaseCode() + "'" +
             ", currencyNonBaseCode='" + getCurrencyNonBaseCode() + "'" +
-            ", providedBy='" + getProvidedBy() + "'" +
+            ", rateProvider='" + getRateProvider() + "'" +
             "}";
     }
 }

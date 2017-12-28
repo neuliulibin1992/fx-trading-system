@@ -170,7 +170,7 @@ public class OneForgeFxRateProvider implements FxRateProvider {
             currMapDto.setCurrencyQuote(curSymbol);
             currMapDto.setCurrencyBaseCode(curSymbol.substring(0, 3));
             currMapDto.setCurrencyNonBaseCode(curSymbol.substring(3, 6));
-            currMapDto.setProvidedBy(CurrencyRateProvider.ONE_FORGE);
+            currMapDto.setRateProvider(CurrencyRateProvider.ONE_FORGE);
             currencyMapService.save(currMapDto);
         }
 

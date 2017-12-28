@@ -50,8 +50,8 @@ public class CurrencyMapResourceIntTest {
     private static final String DEFAULT_CURRENCY_NON_BASE_CODE = "AAAAAAAAAA";
     private static final String UPDATED_CURRENCY_NON_BASE_CODE = "BBBBBBBBBB";
 
-    private static final CurrencyRateProvider DEFAULT_PROVIDED_BY = CurrencyRateProvider.ONE_FORGE;
-    private static final CurrencyRateProvider UPDATED_PROVIDED_BY = CurrencyRateProvider.CURRENCY_LAYER;
+    private static final CurrencyRateProvider DEFAULT_RATE_PROVIDER = CurrencyRateProvider.ONE_FORGE;
+    private static final CurrencyRateProvider UPDATED_RATE_PROVIDER = CurrencyRateProvider.CURRENCY_LAYER;
 
     @Autowired
     private CurrencyMapRepository currencyMapRepository;
@@ -99,7 +99,7 @@ public class CurrencyMapResourceIntTest {
             .currencyQuote(DEFAULT_CURRENCY_QUOTE)
             .currencyBaseCode(DEFAULT_CURRENCY_BASE_CODE)
             .currencyNonBaseCode(DEFAULT_CURRENCY_NON_BASE_CODE)
-            .providedBy(DEFAULT_PROVIDED_BY);
+            .rateProvider(DEFAULT_RATE_PROVIDER);
         return currencyMap;
     }
 
@@ -127,7 +127,7 @@ public class CurrencyMapResourceIntTest {
         assertThat(testCurrencyMap.getCurrencyQuote()).isEqualTo(DEFAULT_CURRENCY_QUOTE);
         assertThat(testCurrencyMap.getCurrencyBaseCode()).isEqualTo(DEFAULT_CURRENCY_BASE_CODE);
         assertThat(testCurrencyMap.getCurrencyNonBaseCode()).isEqualTo(DEFAULT_CURRENCY_NON_BASE_CODE);
-        assertThat(testCurrencyMap.getProvidedBy()).isEqualTo(DEFAULT_PROVIDED_BY);
+        assertThat(testCurrencyMap.getRateProvider()).isEqualTo(DEFAULT_RATE_PROVIDER);
     }
 
     @Test
@@ -164,7 +164,7 @@ public class CurrencyMapResourceIntTest {
             .andExpect(jsonPath("$.[*].currencyQuote").value(hasItem(DEFAULT_CURRENCY_QUOTE.toString())))
             .andExpect(jsonPath("$.[*].currencyBaseCode").value(hasItem(DEFAULT_CURRENCY_BASE_CODE.toString())))
             .andExpect(jsonPath("$.[*].currencyNonBaseCode").value(hasItem(DEFAULT_CURRENCY_NON_BASE_CODE.toString())))
-            .andExpect(jsonPath("$.[*].providedBy").value(hasItem(DEFAULT_PROVIDED_BY.toString())));
+            .andExpect(jsonPath("$.[*].rateProvider").value(hasItem(DEFAULT_RATE_PROVIDER.toString())));
     }
 
     @Test
@@ -181,7 +181,7 @@ public class CurrencyMapResourceIntTest {
             .andExpect(jsonPath("$.currencyQuote").value(DEFAULT_CURRENCY_QUOTE.toString()))
             .andExpect(jsonPath("$.currencyBaseCode").value(DEFAULT_CURRENCY_BASE_CODE.toString()))
             .andExpect(jsonPath("$.currencyNonBaseCode").value(DEFAULT_CURRENCY_NON_BASE_CODE.toString()))
-            .andExpect(jsonPath("$.providedBy").value(DEFAULT_PROVIDED_BY.toString()));
+            .andExpect(jsonPath("$.rateProvider").value(DEFAULT_RATE_PROVIDER.toString()));
     }
 
     @Test
@@ -205,7 +205,7 @@ public class CurrencyMapResourceIntTest {
             .currencyQuote(UPDATED_CURRENCY_QUOTE)
             .currencyBaseCode(UPDATED_CURRENCY_BASE_CODE)
             .currencyNonBaseCode(UPDATED_CURRENCY_NON_BASE_CODE)
-            .providedBy(UPDATED_PROVIDED_BY);
+            .rateProvider(UPDATED_RATE_PROVIDER);
         CurrencyMapDTO currencyMapDTO = currencyMapMapper.toDto(updatedCurrencyMap);
 
         restCurrencyMapMockMvc.perform(put("/api/currency-maps")
@@ -220,7 +220,7 @@ public class CurrencyMapResourceIntTest {
         assertThat(testCurrencyMap.getCurrencyQuote()).isEqualTo(UPDATED_CURRENCY_QUOTE);
         assertThat(testCurrencyMap.getCurrencyBaseCode()).isEqualTo(UPDATED_CURRENCY_BASE_CODE);
         assertThat(testCurrencyMap.getCurrencyNonBaseCode()).isEqualTo(UPDATED_CURRENCY_NON_BASE_CODE);
-        assertThat(testCurrencyMap.getProvidedBy()).isEqualTo(UPDATED_PROVIDED_BY);
+        assertThat(testCurrencyMap.getRateProvider()).isEqualTo(UPDATED_RATE_PROVIDER);
     }
 
     @Test

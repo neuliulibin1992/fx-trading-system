@@ -15,7 +15,7 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "providedBy",
+            "fieldName": "rateProvider",
             "fieldType": "CurrencyRateProvider",
             "fieldValues": "ONE_FORGE,CURRENCY_LAYER"
         }

@@ -20,7 +20,7 @@ public interface CurrencyMapRepository extends JpaRepository<CurrencyMap, Long> 
      * @param rateProvider
      * @return
      */
-    Long deleteByProvidedBy(CurrencyRateProvider rateProvider);
+    Long deleteByRateProvider(CurrencyRateProvider rateProvider);
 
-    List<CurrencyMap> getByProvidedBy(CurrencyRateProvider rateProvider);
+    List<CurrencyMap> getByRateProvider(CurrencyRateProvider rateProvider);
 }
