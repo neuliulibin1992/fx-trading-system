@@ -23,3 +23,25 @@ solution 2: disable liquibase checksum validation by
     
 solution 3: for services run locally, remove h2 db file.
 and rebuild and then ./mvnw to restart the service.
+
+
+2. Enable h2 web console for price service locally.
+
+    edit 'application-dev.yml' in fx-price-service module
+        
+    ``    h2:
+              console:
+                  enabled: true``
+                  
+    run mvn in fx-price-service module (command line).
+    
+    h2 console url: http://localhost:8081/h2-console
+    
+    h2 console connection:
+    JDBC URL: jdbc:h2:file:./target/h2db/db/fxpriceservice
+    username: fxpriceservice
+    
+     ![alt text](images/faq/h2_console_config.png "setup h2 console")
+
+    
+3. 
