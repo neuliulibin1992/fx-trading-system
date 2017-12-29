@@ -94,6 +94,9 @@
         <springfox.version>2.7.0</springfox.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
         <yarn.version>v0.27.5</yarn.version>
+
+        <!-- Misc. -->
+        <i18nenum.package>1.22</i18nenum.package>
     </properties>
 
     <dependencyManagement>
@@ -109,6 +112,11 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>com.neovisionaries</groupId>
+            <artifactId>nv-i18n</artifactId>
+            <version>${i18nenum.package}</version>
+        </dependency>
         <dependency>
             <groupId>io.github.jhipster</groupId>
             <artifactId>jhipster</artifactId>
