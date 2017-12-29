@@ -41,14 +41,17 @@ public class OneForgeFxRateProvider implements FxRateProvider {
     private ApplicationProperties appProperties;
     private CurrencyMapService currencyMapService;
     private FxRateService fxRateService;
+    private RestTemplate restTemplate;
 
 
     public OneForgeFxRateProvider(ApplicationProperties applicationProperties,
                                   CurrencyMapService currencyMapService,
-                                  FxRateService fxRateService) {
+                                  FxRateService fxRateService,
+                                  RestTemplate restTemplate) {
         appProperties = applicationProperties;
         this.currencyMapService = currencyMapService;
         this.fxRateService = fxRateService;
+        this.restTemplate = restTemplate;
     }
 
 
@@ -56,6 +59,11 @@ public class OneForgeFxRateProvider implements FxRateProvider {
     @Scheduled(fixedDelayString = "${application.rate-provider.one-forge.fixed-delay}")
     public void fetchFxRates() {
         log.info("Getting fx rates from 1Forex");
+
+        if (!appProperties.getRateProvider().getOneForge().isEnabled()) {
+            log.info("one forge rate provider is disabled. skip getting fx rate");
+            return;
+        }
 
         List<CurrencyMap> supportedCurrencies = currencyMapService.getByProvider(CurrencyRateProvider.ONE_FORGE);
         List<String> supportedSymbols = supportedCurrencies.stream().map(CurrencyMap::getCurrencyQuote).collect(Collectors.toList());
@@ -71,7 +79,6 @@ public class OneForgeFxRateProvider implements FxRateProvider {
         for(List<String> listOfSupportedSymbols : smallListOfSupportedSymbols) {
             log.debug("Fetching fx rates for symbols {}. ", listOfSupportedSymbols);
 
-            RestTemplate restTemplate = new RestTemplate();
             String url = constructUrlToGetFxRates(listOfSupportedSymbols);
 
             FxRateOneForge[] oneforgeFxRates = restTemplate.getForObject(url, FxRateOneForge[].class);
@@ -124,7 +131,11 @@ public class OneForgeFxRateProvider implements FxRateProvider {
     public void updateSupportedCurrencies() {
         log.info("Start updating supported symbols");
 
-        RestTemplate restTemplate = new RestTemplate();
+        if (!appProperties.getRateProvider().getOneForge().isEnabled()) {
+            log.info("one forge rate provider is disabled. skip updating supported symbols");
+            return;
+        }
+
         String url = constructUrlToGetListOfSymbols();
 
         log.debug("Retrieving supported symbols from url {}", url);
