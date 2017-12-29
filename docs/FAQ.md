@@ -33,8 +33,15 @@ and rebuild and then ./mvnw to restart the service.
               console:
                   enabled: true``
                   
-    run mvn in fx-price-service module.
+    run mvn in fx-price-service module (command line).
     
     h2 console url: http://localhost:8081/h2-console
+    
+    h2 console connection:
+    JDBC URL: jdbc:h2:file:./target/h2db/db/fxpriceservice
+    username: fxpriceservice
+    
+     ![alt text](images/faq/h2_console_config.png "setup h2 console")
+
     
 3. 
