@@ -43,15 +43,15 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="bid_price" type="decimal(10,2)">
+            <column name="bid_price" type="decimal(12,6)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="ask_price" type="decimal(10,2)">
+            <column name="ask_price" type="decimal(12,6)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="mid_price" type="decimal(10,2)">
+            <column name="mid_price" type="decimal(12,6)">
                 <constraints nullable="true" />
             </column>
 
