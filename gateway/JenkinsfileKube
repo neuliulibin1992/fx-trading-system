@@ -77,6 +77,10 @@ node {
         dir('gateway') {
             deleteDir()
         }
+
+        dir('fx-price-service') {
+            deleteDir()
+        }
     }
 
 }
