@@ -73,5 +73,10 @@ node {
         }
     }
 
+    stage('clear ws') {
+        dir('gateway') {
+            deleteDir()
+        }
+    }
 
 }

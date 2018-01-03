@@ -56,10 +56,13 @@ node {
     stage('packaging') {
         dir('gateway') {
             sh "./mvnw package -Pprod -DskipTests"
-//            archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
         }
     }
 
-
+    stage('clear ws') {
+        dir('gateway') {
+            deleteDir()
+        }
+    }
 
 }
