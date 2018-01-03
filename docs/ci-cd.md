@@ -218,4 +218,17 @@ kubectl expose service jhipster-registry --type=LoadBalancer --name=exposed-regi
 kubectl expose service jhipster-console --type=LoadBalancer --name=exposed-console
 
 
+# Update Jenkins installed in Google compute engine
+SSH into Jenkins server, run
+
+    sudo apt-get update
+    sudo apt-get install jenkins
+    
+Jenkins will auto-restart after upgraded.
+
+# Path for jenkins workspace
+at:
+    
+    /var/lib/jenkins/workspace
+    
 

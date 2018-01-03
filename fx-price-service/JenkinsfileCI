@@ -34,4 +34,10 @@ node {
         }
     }
 
+    stage('clear ws') {
+        dir('fx-price-service') {
+            deleteDir()
+        }
+    }
+
 }

@@ -46,4 +46,10 @@ node {
             sh "kubectl apply -f fxpriceservice"
         }
     }
+
+    stage('clear ws') {
+        dir('fx-price-service') {
+            deleteDir()
+        }
+    }
 }
