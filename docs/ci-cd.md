@@ -225,3 +225,10 @@ SSH into Jenkins server, run
     sudo apt-get install jenkins
     
 Jenkins will auto-restart after upgraded.
+
+# Path for jenkins workspace
+at:
+    
+    /var/lib/jenkins/workspace
+    
+
